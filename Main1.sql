@@ -109,9 +109,10 @@ CREATE TABLE NhanVien
 (
 ID_NV INT IDENTITY(1,1) PRIMARY KEY,
 ID_CV INT,
+ID_TK INT,
 TenNV NVARCHAR(50),
 Email NVARCHAR(50),
-MatKhau NVARCHAR(50),
+SoDienThoai VARCHAR(10),
 GioiTinh Bit,
 NgaySinh DATE,
 DiaChi NVARCHAR(250)
@@ -129,11 +130,8 @@ GO
 CREATE TABLE TaiKhoan
 (
 ID_TK INT IDENTITY(1,1) PRIMARY KEY,
-ID_NV INT,
 TenTK NVARCHAR(50),
-MatKhau NVARCHAR(50),
-VaiTro BIT,
-TrangThai BIT
+MatKhau NVARCHAR(50)
 )
 GO
 
@@ -150,13 +148,11 @@ CREATE TABLE KhachHang
 ID_KH INT IDENTITY(1,1) PRIMARY KEY,
 TenKH NVARCHAR(50),
 MatKhau NVARCHAR(50),
-GioiTinh BIT,
+GioiTinh NVARCHAR(10),
 NgaySinh DATE,
 DiaChi NVARCHAR(250),
 DienThoai VARCHAR(10),
-Email NVARCHAR(50),
-Hinh NVARCHAR(50),
-MoTa NVARCHAR(250)
+TrangThai NVARCHAR(50)
 )
 GO
 
@@ -478,6 +474,7 @@ CREATE TABLE GiamGiaTheoSP(
 ID_TSP INT IDENTITY(1,1)  PRIMARY KEY,
 ID_SP INT,
 GiaTriGG NVARCHAR(50),
+Hinhthuc NVARCHAR(50),
 DieuKienGG NVARCHAR(50),
 MoTa NVARCHAR(250)
 )
@@ -497,6 +494,7 @@ ID_TKH INT IDENTITY(1,1)  PRIMARY KEY,
 ID_KH INT,
 VaiTro BIT,
 GiaTriGG NVARCHAR(50),
+Hinhthuc NVARCHAR(50),
 DieuKienGG NVARCHAR(50),
 MoTa NVARCHAR(250)
 )
@@ -511,6 +509,8 @@ DROP TABLE DotGiamGia
 GO
 CREATE TABLE DotGiamGia(
    ID_DGG INT IDENTITY(1,1) PRIMARY KEY,
+   ID_TKH INT,
+   ID_TSP INT,
    TeNDGG NVARCHAR(500),
    NgayBatDau DATE,
    NgayKetThuc DATE,
@@ -582,19 +582,34 @@ LichSu DATETIME
 )
 
 /*==============================================================*/
-/* 30. Table: Loại Giảm Giá                                     */
+/* 30. Table: Dợt Giảm Giá Theo Sản Phẩm                        */
 /*==============================================================*/
-IF OBJECT_ID('LoaiGiamGia') IS NOT NULL
-DROP TABLE LoaiGiamGia
+IF OBJECT_ID('DotGiamGiaTheoSP') IS NOT NULL
+DROP TABLE DotGiamGiaTheoSP
 GO
-CREATE TABLE LoaiGiamGia
-(
-ID_LGG INT IDENTITY(1,1) PRIMARY KEY,
-ID_DGG INT,
-TenLGG NVARCHAR(50),
-SoTienGiam MONEY,
-DKApDung NVARCHAR(50),
-MoTa NVARCHAR(250)
+CREATE TABLE DotGiamGiaTheoSP(
+   ID_TSP INT IDENTITY(1,1) PRIMARY KEY,
+   ID_DGG INT,
+   ID_SP INT,
+   GiaTriGG NVARCHAR(250),
+   DieuKienGiamGia NVARCHAR(50),
+   MoTa NVARCHAR(250)
+)
+GO
+
+/*==============================================================*/
+/* 31. Table: Dợt Giảm Giá Theo Khách Hàng                      */
+/*==============================================================*/
+IF OBJECT_ID('DotGiamGiaTheoKH') IS NOT NULL
+DROP TABLE DotGiamGiaTheoKH
+GO
+CREATE TABLE DotGiamGiaTheoKH(
+   ID_TKH INT IDENTITY(1,1) PRIMARY KEY,
+   ID_DGG INT,
+   ID_KH INT,
+   GiaTriGG NVARCHAR(250),
+   DieuKienGiamGia NVARCHAR(50),
+   MoTa NVARCHAR(250)
 )
 GO
 
@@ -656,35 +671,35 @@ VALUES
 SELECT * FROM PhieuChamCong
 
 -- Nhân Viên
-INSERT INTO NhanVien (ID_CV, TenNV, Email, MatKhau, GioiTinh, NgaySinh, DiaChi)
+INSERT INTO NhanVien (ID_CV, TenNV, Email, SoDienThoai, GioiTinh, NgaySinh, DiaChi)
 VALUES
-(1, N'Nguyễn Văn A', 'a@example.com', 'password123', 1, '1990-01-15', N'123 Đường ABC'),
-(2, N'Trần Thị B', 'b@example.com', 'securepass', 0, '1995-05-20', N'456 Đường XYZ'),
-(3, N'Lê Văn C', 'c@example.com', 'pass123', 1, '1988-09-08', N'789 Đường LMN'),
-(4, N'Phạm Thị D', 'd@example.com', 'd_securepass', 0, '1992-03-25', N'456 Đường PQR'),
-(5, N'Hoàng Văn E', 'e@example.com', 'pass456', 1, '1993-12-12', N'789 Đường UVW');
+(1, N'Nguyễn Văn A', 'a@example.com', '234567890', 1, '1990-01-15', N'123 Đường ABC'),
+(2, N'Trần Thị B', 'b@example.com', '87654322', 0, '1995-05-20', N'456 Đường XYZ'),
+(3, N'Lê Văn C', 'c@example.com', '2345675754', 1, '1988-09-08', N'789 Đường LMN'),
+(4, N'Phạm Thị D', 'd@example.com', '23456234', 0, '1992-03-25', N'456 Đường PQR'),
+(5, N'Hoàng Văn E', 'e@example.com', '243567788', 1, '1993-12-12', N'789 Đường UVW');
 
 SELECT * FROM NhanVien
 
 -- Tài Khoản
-INSERT INTO TaiKhoan (ID_NV, TenTK, MatKhau, VaiTro, TrangThai)
+INSERT INTO TaiKhoan (TenTK, MatKhau)
 VALUES
-(1, 'a_account', 'a_password', 1, 1),
-(2, 'b_account', 'b_securepass', 0, 1),
-(3, 'c_account', 'c_pass123', 1, 1),
-(4, 'd_account', 'd_securepass', 0, 1),
-(5, 'e_account', 'e_pass456', 1, 1);
+('a_account', 'a_password'),
+('b_account', 'b_securepass'),
+('c_account', 'c_pass123'),
+('d_account', 'd_securepass'),
+('e_account', 'e_pass456');
 
 SELECT * FROM TaiKhoan
 
 -- Khách Hàng
-INSERT INTO KhachHang (TenKH, MatKhau, GioiTinh, NgaySinh, DiaChi, DienThoai, Email, Hinh, MoTa)
+INSERT INTO KhachHang (TenKH, MatKhau, GioiTinh, NgaySinh, DiaChi, DienThoai)
 VALUES
-(N'Khách hàng 1', 'khachhang1pass', 1, '1988-03-10', N'789 Đường Khách Hàng', '1234567890', 'khachhang1@example.com', 'avatar1.jpg', N'Khách hàng thường xuyên'),
-(N'Khách hàng 2', 'khachhang2pass', 0, '1992-07-25', N'456 Đường Người Dùng', '9876543210', 'khachhang2@example.com', 'avatar2.jpg', N'Người mua hàng thường xuyên'),
-(N'Khách hàng 3', 'khachhang3pass', 1, '1985-11-18', N'123 Đường Thành Viên', '5556667777', 'khachhang3@example.com', 'avatar3.jpg', N'Khách hàng VIP'),
-(N'Khách hàng 4', 'khachhang4pass', 0, '1990-05-08', N'789 Đường Premium', '9998887777', 'khachhang4@example.com', 'avatar4.jpg', N'Thành viên độc quyền'),
-(N'Khách hàng 5', 'khachhang5pass', 1, '1993-09-30', N'456 Đường Gold', '3332221111', 'khachhang5@example.com', 'avatar5.jpg', N'Thành viên Vàng');
+(N'Khách hàng 1', 'khachhang1pass', 1, '1988-03-10', N'789 Đường Khách Hàng', '1234567890'),
+(N'Khách hàng 2', 'khachhang2pass', 0, '1992-07-25', N'456 Đường Người Dùng', '9876543210'),
+(N'Khách hàng 3', 'khachhang3pass', 1, '1985-11-18', N'123 Đường Thành Viên', '5556667777'),
+(N'Khách hàng 4', 'khachhang4pass', 0, '1990-05-08', N'789 Đường Premium', '9998887777'),
+(N'Khách hàng 5', 'khachhang5pass', 1, '1993-09-30', N'456 Đường Gold', '3332221111');
 
 SELECT * FROM KhachHang
 
@@ -859,17 +874,6 @@ VALUES
 
 SELECT * FROM GiamGiaTheoKH
 
--- Đợt Giảm Giá
-INSERT INTO DotGiamGia (TeNDGG, NgayBatDau, NgayKetThuc, LoaiGiamGia, GiaTriGG, DieuKienGiamGia, MoTa)
-VALUES
-(N'Đợt giảm giá cuối năm', '2023-11-25', '2023-12-31', N'Giảm giá theo tỷ lệ', '20%', N'Hóa đơn từ 500,000 đồng trở lên', N'Đợt giảm giá cuối năm áp dụng cho tất cả sản phẩm'),
-(N'Đợt giảm giá đầu năm', '2024-01-01', '2024-01-31', N'Giảm giá theo tỷ lệ', '15%', N'Hóa đơn từ 300,000 đồng trở lên', N'Đợt giảm giá đầu năm áp dụng cho sản phẩm mới'),
-(N'Đợt giảm giá mùa hè', '2024-06-01', '2024-08-31', N'Giảm giá theo số tiền', '50,000 đồng', N'Hóa đơn từ 1,000,000 đồng trở lên', N'Đợt giảm giá mùa hè áp dụng cho tất cả sản phẩm'),
-(N'Đợt giảm giá mùa đông', '2024-12-01', '2025-02-28', N'Giảm giá theo số tiền', '30,000 đồng', N'Hóa đơn từ 800,000 đồng trở lên', N'Đợt giảm giá mùa đông áp dụng cho sản phẩm nam'),
-(N'Đợt giảm giá sinh nhật', '2024-09-15', '2024-09-15', N'Giảm giá theo số tiền', '100,000 đồng', N'Hóa đơn từ 500,000 đồng trở lên', N'Đợt giảm giá sinh nhật áp dụng cho khách hàng VIP');
-
-SELECT * FROM DotGiamGia
-
 -- Phương Thức Vận Chuyển
 INSERT INTO PhuongThucVanChuyen (HinhThucVC, MoTa)
 VALUES
@@ -914,16 +918,38 @@ VALUES
 
 SELECT * FROM TinNhan
 
--- Loại Giảm Giá
-INSERT INTO LoaiGiamGia (ID_DGG, TenLGG, SoTienGiam, DKApDung, MoTa)
+-- Đợt Giảm giá theo Sản phẩm
+INSERT INTO DotGiamGiaTheoSP (ID_DGG, ID_SP, GiaTriGG, DieuKienGiamGia, MoTa)
 VALUES
-(1, N'Theo tỷ lệ', 10.00, N'Hóa đơn từ 500,000 đồng trở lên', N'Giảm giá 10% cho hóa đơn từ 500,000 đồng trở lên'),
-(2, N'Theo tỷ lệ', 15.00, N'Hóa đơn từ 300,000 đồng trở lên', N'Giảm giá 15% cho hóa đơn từ 300,000 đồng trở lên'),
-(3, N'Theo số tiền', 50000.00, N'Hóa đơn từ 1,000,000 đồng trở lên', N'Giảm giá 50,000 đồng cho hóa đơn từ 1,000,000 đồng trở lên'),
-(4, N'Theo số tiền', 30000.00, N'Hóa đơn từ 800,000 đồng trở lên', N'Giảm giá 30,000 đồng cho hóa đơn từ 800,000 đồng trở lên'),
-(5, N'Theo số tiền', 100000.00, N'Hóa đơn từ 500,000 đồng trở lên', N'Giảm giá 100,000 đồng cho hóa đơn từ 500,000 đồng trở lên');
+(1, 1, N'10%', N'Mua 2 áo phông trở lên', N'Ưu đãi mua số lượng'),
+(5, 2, N'5%', N'Mua 3 áo phông trở lên', N'Ưu đãi mua số lượng'),
+(2, 3, N'15%', N'Mua bất kỳ 4 áo phông nào', N'Khuyến mãi đặc biệt'),
+(3, 4, N'20%', N'Mua bất kỳ 2 áo phông cùng màu', N'Ưu đãi theo màu sắc'),
+(4, 5, N'25%', N'Mua bất kỳ áo phông nào có logo cụ thể', N'Ưu đãi theo logo')
+ 
+ SELECT * FROM DotGiamGiaTheoSP
 
-SELECT * FROM LoaiGiamGia
+-- Đợt Giảm giá theo Khách hàng
+INSERT INTO DotGiamGiaTheoKH (ID_DGG, ID_KH, GiaTriGG, DieuKienGiamGia, MoTa)
+VALUES
+(1, 201, N'8%', N'Khách hàng VIP', N'Ưu đãi độc quyền cho khách hàng VIP'),
+(2, 202, N'12%', N'Khách hàng mới', N'Ưu đãi chào mừng cho khách hàng mới'),
+(3, 203, N'5%', N'Khách hàng thường xuyên mua sắm', N'Ưu đãi trung thành cho khách hàng thường xuyên'),
+(4, 204, N'10%', N'Khách hàng giới thiệu bạn bè', N'Ưu đãi chương trình giới thiệu'),
+(5, 205, N'15%', N'Khách hàng có sinh nhật trong tháng này', N'Ưu đãi đặc biệt cho sinh nhật')
+
+SELECT * FROM DotGiamGiaTheoKH
+
+-- Đợt Giảm Giá
+INSERT INTO DotGiamGia (ID_TKH, ID_TSP, TeNDGG, NgayBatDau, NgayKetThuc, LoaiGiamGia, GiaTriGG, DieuKienGiamGia, MoTa)
+VALUES
+    (1, 101, N'Ưu đãi cho khách hàng VIP', '2023-01-01', '2023-01-31', N'Theo sản phẩm', N'10%', N'Mua 2 áo phông trở lên', N'Ưu đãi mua số lượng'),
+    (2, 102, N'Ưu đãi cho thành viên mới', '2023-02-01', '2023-02-28', N'Theo sản phẩm', N'15%', N'Mua bất kỳ 3 áo phông nào', N'Ưu đãi cho thành viên mới đăng ký'),
+    (3, 103, N'Khuyến mãi mùa hè', '2023-03-01', '2023-04-30', N'Theo sản phẩm', N'20%', N'Mua bất kỳ 4 áo phông nào', N'Khuyến mãi mùa hè'),
+    (4, 104, N'Ưu đãi màu sắc', '2023-05-01', '2023-05-31', N'Theo sản phẩm', N'5%', N'Mua bất kỳ 2 áo phông cùng màu', N'Ưu đãi theo màu sắc'),
+    (5, 105, N'Ưu đãi đặc biệt cho logo', '2023-06-01', '2023-06-30', N'Theo sản phẩm', N'12%', N'Mua bất kỳ áo phông nào có logo cụ thể', N'Ưu đãi theo logo');
+
+SELECT * FROM DotGiamGia
 
 --THÊM RÀNG BUỘC
 
@@ -970,9 +996,9 @@ ALTER TABLE dbo.DanhGia
 ALTER TABLE dbo.TinNhan
     ADD FOREIGN KEY (ID_KH) REFERENCES dbo.KhachHang(ID_KH);
 
-ALTER TABLE dbo.TaiKhoan
-    ADD FOREIGN KEY (ID_NV) REFERENCES dbo.NhanVien(ID_NV);
-
+ALTER TABLE dbo.NhanVien
+    ADD FOREIGN KEY (ID_TK) REFERENCES dbo.TaiKhoan(ID_TK);
+	
 ALTER TABLE dbo.ChiTietHoaDon
     ADD FOREIGN KEY (ID_SP) REFERENCES dbo.SanPham(ID_SP),
 		FOREIGN KEY (ID_HD) REFERENCES dbo.HoaDon(ID_HD);
@@ -986,9 +1012,6 @@ ALTER TABLE dbo.SanPham
 
 ALTER TABLE dbo.HinhAnh
     ADD FOREIGN KEY (ID_SP) REFERENCES dbo.SanPham(ID_SP);
-
-ALTER TABLE dbo.LoaiGiamGia
-    ADD FOREIGN KEY (ID_DGG) REFERENCES dbo.DotGiamGia(ID_DGG);
 
 ALTER TABLE dbo.HoaDon
     ADD FOREIGN KEY (ID_KH) REFERENCES dbo.KhachHang(ID_KH),
@@ -1004,4 +1027,10 @@ ALTER TABLE dbo.HoaDon
 ALTER TABLE dbo.ChatLieu
     ADD FOREIGN KEY (ID_SP) REFERENCES dbo.SanPham(ID_SP);
 
+ALTER TABLE dbo.DotGiamGiaTheoSP
+    ADD CONSTRAINT FK_DotGiamGia_DotGiamGiaTheoSP
+        FOREIGN KEY (ID_DGG) REFERENCES DotGiamGia(ID_DGG);
 
+ALTER TABLE dbo.DotGiamGiaTheoKH
+    ADD CONSTRAINT FK_DotGiamGia_DotGiamGiaTheoKH
+        FOREIGN KEY (ID_DGG) REFERENCES DotGiamGia(ID_DGG);
