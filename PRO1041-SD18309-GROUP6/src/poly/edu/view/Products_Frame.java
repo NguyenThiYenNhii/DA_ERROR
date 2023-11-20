@@ -818,6 +818,7 @@ public class Products_Frame extends javax.swing.JFrame {
         try {
             update();
         } catch (Exception e) {
+            System.out.println(e);
         }
     }//GEN-LAST:event_btn_updateActionPerformed
 
@@ -1029,7 +1030,7 @@ public class Products_Frame extends javax.swing.JFrame {
 
     private SanPham getForm() {
         SanPham sp = new SanPham();
-//        sp.setId(Integer.parseInt(txt_id.getText()));
+        sp.setId(Integer.parseInt(txt_id.getText()));
         sp.setTenSP(txt_tenSP.getText());
         sp.setTheLoai((String) cbo_theLoai.getSelectedItem());
         sp.setKichThuoc((String) cbo_kichThuoc.getSelectedItem());

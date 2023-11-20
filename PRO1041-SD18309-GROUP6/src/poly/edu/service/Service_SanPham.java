@@ -2,7 +2,7 @@ package poly.edu.service;
 
 import java.sql.*;
 import java.util.ArrayList;
-import poly.edu.utility.DBContext;
+import poly.edu.repository.DBContext;
 import poly.edu.model.SanPham;
 
 public class Service_SanPham implements Interface_sanPham {
