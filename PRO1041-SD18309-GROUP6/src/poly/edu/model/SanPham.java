@@ -4,15 +4,27 @@ package poly.edu.model;
 public class SanPham {
     private int id;
     private String tenSP;
-    private String theLoai;
-    private String kichThuoc;
-    private String mauSac;
-    private String chatLieu;
+    private TheLoai theLoai;
+    private KichThuoc kichThuoc;
+    private MauSac mauSac;
+    private ChatLieu chatLieu;
     private double donGia;
     private int soLuongTon;
     private String trangThai;
 
     public SanPham() {
+    }
+
+    public SanPham(int id, String tenSP, TheLoai theLoai, KichThuoc kichThuoc, MauSac mauSac, ChatLieu chatLieu, double donGia, int soLuongTon, String trangThai) {
+        this.id = id;
+        this.tenSP = tenSP;
+        this.theLoai = theLoai;
+        this.kichThuoc = kichThuoc;
+        this.mauSac = mauSac;
+        this.chatLieu = chatLieu;
+        this.donGia = donGia;
+        this.soLuongTon = soLuongTon;
+        this.trangThai = trangThai;
     }
 
     public int getId() {
@@ -31,35 +43,35 @@ public class SanPham {
         this.tenSP = tenSP;
     }
 
-    public String getTheLoai() {
+    public TheLoai getTheLoai() {
         return theLoai;
     }
 
-    public void setTheLoai(String theLoai) {
+    public void setTheLoai(TheLoai theLoai) {
         this.theLoai = theLoai;
     }
 
-    public String getKichThuoc() {
+    public KichThuoc getKichThuoc() {
         return kichThuoc;
     }
 
-    public void setKichThuoc(String kichThuoc) {
+    public void setKichThuoc(KichThuoc kichThuoc) {
         this.kichThuoc = kichThuoc;
     }
 
-    public String getMauSac() {
+    public MauSac getMauSac() {
         return mauSac;
     }
 
-    public void setMauSac(String mauSac) {
+    public void setMauSac(MauSac mauSac) {
         this.mauSac = mauSac;
     }
 
-    public String getChatLieu() {
+    public ChatLieu getChatLieu() {
         return chatLieu;
     }
 
-    public void setChatLieu(String chatLieu) {
+    public void setChatLieu(ChatLieu chatLieu) {
         this.chatLieu = chatLieu;
     }
 
@@ -79,7 +91,7 @@ public class SanPham {
         this.soLuongTon = soLuongTon;
     }
 
-    public String isTrangThai() {
+    public String getTrangThai() {
         return trangThai;
     }
 

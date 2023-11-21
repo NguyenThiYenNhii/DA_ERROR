@@ -335,6 +335,14 @@ MoTa NVARCHAR(250)
 )
 GO
 
+SELECT sp.ID_SP, sp.TenSP, tl.TenTL, kt.TenKT, ms.TenMS, cl.TenCL, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp 
+JOIN NhaCungCap ncc ON ncc.ID_NCC = sp.ID_NCC
+JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
+JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
+JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
+JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
+
+SELECT * FROM TheLoai
 /*==============================================================*/
 /* 17. Table: Logo Công Ty                                      */
 /*==============================================================*/
