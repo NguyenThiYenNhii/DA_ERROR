@@ -27,16 +27,16 @@ public class Service_SanPham implements Interface_sanPham {
             while (rs.next()) {
                 TheLoai tl = new TheLoai();
                 tl.setTenTL(rs.getString("TenTL"));
-                
+
                 KichThuoc kt = new KichThuoc();
                 kt.setTenKT(rs.getString("TenKT"));
-                
+
                 MauSac ms = new MauSac();
                 ms.setTenMS(rs.getString("TenMS"));
-                
+
                 ChatLieu cl = new ChatLieu();
                 cl.setTenCL(rs.getString("TenCL"));
-                
+
                 SanPham sp = new SanPham();
                 sp.setId(rs.getInt("ID_SP"));
                 sp.setTenSP(rs.getString("TenSP"));
@@ -54,7 +54,7 @@ public class Service_SanPham implements Interface_sanPham {
         }
         return list;
     }
-    
+
     public ArrayList<TheLoai> getAllTheLoai() {
         ArrayList<TheLoai> list = new ArrayList<>();
         try {
@@ -74,7 +74,7 @@ public class Service_SanPham implements Interface_sanPham {
         }
         return list;
     }
-    
+
     public ArrayList<MauSac> getAllMauSac() {
         ArrayList<MauSac> list = new ArrayList<>();
         try {
@@ -94,7 +94,7 @@ public class Service_SanPham implements Interface_sanPham {
         }
         return list;
     }
-    
+
     public ArrayList<KichThuoc> getAllKichThuoc() {
         ArrayList<KichThuoc> list = new ArrayList<>();
         try {
@@ -114,7 +114,7 @@ public class Service_SanPham implements Interface_sanPham {
         }
         return list;
     }
-    
+
     public ArrayList<ChatLieu> getAllChatLieu() {
         ArrayList<ChatLieu> list = new ArrayList<>();
         try {
