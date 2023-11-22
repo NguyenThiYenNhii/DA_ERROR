@@ -788,7 +788,7 @@ INSERT INTO SanPham (ID_NCC, ID_MS, ID_TL, ID_CL, ID_KT, ID_GG, ID_HA, TenSP, Th
 (2, 2, 2, 2, 2, 1, 2, N'Áo phông nam màu trắng', N'Áo phông nữ', 'M', N'Trắng',  N'Len', 45, 180000, '2023-01-02', 1, 190, 1, N'Áo phông nam màu trắng đơn giản và thời trang'),
 (3, 2, 3, 3, 3, 2, 3, N'Áo phông nam màu xanh dương', N'Áo phông trẻ em', 'L', N'Trắng',  N'Polyester', 35, 300000, '2023-01-03', 1, 109, 1, N'Áo phông nam màu xanh dương năng động và trẻ trung'),
 (4, 4, 4, 4, 2, 2, 4, N'Áo phông nam màu đỏ', N'Áo phông Unisex', 'M', N'Đỏ',  N'Satin', 15, 10000, '2023-01-04', 5, 10, 1, N'Áo phông nam màu đỏ cá tính và phong cách'),
-(5, 2, 5, 5, 2, 3, 5, N'Áo phông nữ màu xám', N'Áo phông thể thao', 'M', N'Trắng',  N'Kaki', 50, 200000, '2023-01-05', 1, 100, 1, N'Áo phông nữ màu xám nhẹ nhàng và duyên dáng');
+(5, 2, 5, 5, 2, 3, 5, N'Áo phông nữ màu trắng', N'Áo phông thể thao', 'M', N'Trắng',  N'Kaki', 50, 200000, '2023-01-05', 1, 100, 1, N'Áo phông nữ màu xám nhẹ nhàng và duyên dáng');
 
 SELECT sp.ID_SP, sp.TenSP, sp.TheLoai, sp.KichThuoc, sp.MauSac, sp.ChatLieu, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp 
 LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
@@ -990,10 +990,7 @@ ALTER TABLE dbo.Thuong
 
 ALTER TABLE dbo.PhieuGiamGia
     ADD CONSTRAINT FK_PhieuGiamGia_GiamGiaTheoSP
-        FOREIGN KEY (ID_TSP) REFERENCES GiamGiaTheoSP(ID_TSP);
-
-		ALTER TABLE PhieuGiamGia
-		DROP CONSTRAINT FK_PhieuGiamGia_GiamGiaTheoSP
+        FOREIGN KEY (ID_TSP) REFERENCES GiamGiaTheoSP(ID_TSP); --- Lỗi
 
 ALTER TABLE dbo.PhieuGiamGia
     ADD CONSTRAINT FK_PhieuGiamGia_GiamGiaTheoKH
