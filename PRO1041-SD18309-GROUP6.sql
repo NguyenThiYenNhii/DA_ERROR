@@ -112,7 +112,7 @@ ID_CV INT,
 ID_TK INT,
 TenNV NVARCHAR(50),
 Email NVARCHAR(50),
-SoDienThoai VARCHAR(10),
+SoDienThoai VARCHAR(11),
 GioiTinh Bit,
 NgaySinh DATE,
 DiaChi NVARCHAR(250)
