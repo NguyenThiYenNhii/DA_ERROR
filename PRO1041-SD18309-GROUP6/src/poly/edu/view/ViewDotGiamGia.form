@@ -393,7 +393,7 @@
             <Component class="javax.swing.JTable" name="tbl_dotgiamgia">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="8" rowCount="4">
+                  <Table columnCount="10" rowCount="4">
                     <Column editable="true" title="ID_DGG" type="java.lang.Object"/>
                     <Column editable="true" title="TenDGG" type="java.lang.Object"/>
                     <Column editable="true" title="NgayBatDau" type="java.lang.Object"/>
@@ -402,10 +402,22 @@
                     <Column editable="true" title="GiaTriGiamGia" type="java.lang.Object"/>
                     <Column editable="true" title="DieuKienGiamGia" type="java.lang.Object"/>
                     <Column editable="true" title="MoTa" type="java.lang.Object"/>
+                    <Column editable="true" title="IDTKH" type="java.lang.Object"/>
+                    <Column editable="true" title="IDTSP" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>

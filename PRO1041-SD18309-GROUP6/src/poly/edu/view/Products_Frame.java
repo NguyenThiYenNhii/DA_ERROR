@@ -923,6 +923,11 @@ public class Products_Frame extends javax.swing.JFrame {
         
         loadDataTable();
         
+        if (tbl_list.getRowCount() > 0) {
+            tbl_list.setRowSelectionInterval(0, 0);
+            showDetail();
+        }
+        
     }
 
     private void loadComboTheLoai() {

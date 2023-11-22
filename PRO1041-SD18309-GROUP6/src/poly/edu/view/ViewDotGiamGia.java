@@ -272,13 +272,13 @@ public class ViewDotGiamGia extends javax.swing.JFrame {
 
         tbl_dotgiamgia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID_DGG", "TenDGG", "NgayBatDau", "NgayKetThuc", "LoaiGiamGia", "GiaTriGiamGia", "DieuKienGiamGia", "MoTa"
+                "ID_DGG", "TenDGG", "NgayBatDau", "NgayKetThuc", "LoaiGiamGia", "GiaTriGiamGia", "DieuKienGiamGia", "MoTa", "IDTKH", "IDTSP"
             }
         ));
         tbl_dotgiamgia.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -470,7 +470,9 @@ public class ViewDotGiamGia extends javax.swing.JFrame {
                 dgg.getLoaiGiamGia(),
                 dgg.getGiaTriGG(),
                 dgg.getDieuKienGiamGia(),
-                dgg.getMoTa()
+                dgg.getMoTa(),
+                dgg.getId_kh(),
+                dgg.getId_sp()
             });
         }
     }

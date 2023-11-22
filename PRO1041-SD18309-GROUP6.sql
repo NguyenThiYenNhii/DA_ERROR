@@ -119,8 +119,6 @@ DiaChi NVARCHAR(250)
 )
 GO
 
-SELECT * FROM dbo.NhanVien JOIN dbo.TaiKhoan ON TaiKhoan.ID_TK = NhanVien.ID_TK JOIN dbo.ChucVu ON ChucVu.ID_CV = NhanVien.ID_CV
-
 /*==============================================================*/
 /* 7. Table: Tài Khoản                                          */
 /*==============================================================*/
@@ -434,6 +432,10 @@ ID_KH INT,
 ID_NV INT,
 ID_HD INT,
 NgayGiao DATE,
+SoDienThoai VARCHAR(10),
+TenNV NVARCHAR(50),
+PhiVC MONEY,
+DiaChi NVARCHAR(250),
 ID_DC INT,
 TrangThaiGH BIT,
 TrangThaiTT BIT,
@@ -594,6 +596,7 @@ CREATE TABLE DotGiamGiaTheoSP(
    ID_TSP INT IDENTITY(1,1) PRIMARY KEY,
    ID_DGG INT,
    ID_SP INT,
+   TenSP NVARCHAR(50),
    GiaTriGG NVARCHAR(250),
    DieuKienGiamGia NVARCHAR(50),
    MoTa NVARCHAR(250)
@@ -610,6 +613,7 @@ CREATE TABLE DotGiamGiaTheoKH(
    ID_TKH INT IDENTITY(1,1) PRIMARY KEY,
    ID_DGG INT,
    ID_KH INT,
+   TenKH NVARCHAR(50),
    GiaTriGG NVARCHAR(250),
    DieuKienGiamGia NVARCHAR(50),
    MoTa NVARCHAR(250)
@@ -695,13 +699,13 @@ VALUES
 SELECT * FROM TaiKhoan
 
 -- Khách Hàng
-INSERT INTO KhachHang (TenKH, MatKhau, GioiTinh, NgaySinh, DiaChi, DienThoai)
+INSERT INTO KhachHang (TenKH, MatKhau, GioiTinh, NgaySinh, DiaChi, DienThoai,TrangThai)
 VALUES
-(N'Khách hàng 1', 'khachhang1pass', 1, '1988-03-10', N'789 Đường Khách Hàng', '1234567890'),
-(N'Khách hàng 2', 'khachhang2pass', 0, '1992-07-25', N'456 Đường Người Dùng', '9876543210'),
-(N'Khách hàng 3', 'khachhang3pass', 1, '1985-11-18', N'123 Đường Thành Viên', '5556667777'),
-(N'Khách hàng 4', 'khachhang4pass', 0, '1990-05-08', N'789 Đường Premium', '9998887777'),
-(N'Khách hàng 5', 'khachhang5pass', 1, '1993-09-30', N'456 Đường Gold', '3332221111');
+(N'Khách hàng 1', 'khachhang1pass', N'Nam', '1988-03-10', N'789 Đường Khách Hàng', '1234567890',N'Lâu năm'),
+(N'Khách hàng 2', 'khachhang2pass', N'Nữ', '1992-07-25', N'456 Đường Người Dùng', '9876543210',N'Khách hàng mới'),
+(N'Khách hàng 3', 'khachhang3pass', N'Nam', '1985-11-18', N'123 Đường Thành Viên', '5556667777',N'Lâu năm'),
+(N'Khách hàng 4', 'khachhang4pass', N'Khác', '1990-05-08', N'789 Đường Premium', '9998887777',N'Khách hàng mới'),
+(N'Khách hàng 5', 'khachhang5pass', N'Nam', '1993-09-30', N'456 Đường Gold', '3332221111', N'Khách hàng mới');
 
 SELECT * FROM KhachHang
 
@@ -786,14 +790,21 @@ INSERT INTO SanPham (ID_NCC, ID_MS, ID_TL, ID_CL, ID_KT, ID_GG, ID_HA, TenSP, Th
 (4, 4, 4, 4, 2, 2, 4, N'Áo phông nam màu đỏ', N'Áo phông Unisex', 'M', N'Đỏ',  N'Satin', 15, 10000, '2023-01-04', 5, 10, 1, N'Áo phông nam màu đỏ cá tính và phong cách'),
 (5, 2, 5, 5, 2, 3, 5, N'Áo phông nữ màu xám', N'Áo phông thể thao', 'M', N'Trắng',  N'Kaki', 50, 200000, '2023-01-05', 1, 100, 1, N'Áo phông nữ màu xám nhẹ nhàng và duyên dáng');
 
-SELECT sp.ID_SP, sp.TenSP, tl.TenTL, kt.TenKT, ms.TenMS, cl.TenCL, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp 
-JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
-JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
-JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
-JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
+SELECT sp.ID_SP, sp.TenSP, sp.TheLoai, sp.KichThuoc, sp.MauSac, sp.ChatLieu, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp 
+LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
+LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
+LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
+LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
+
+SELECT sp.ID_SP, sp.TenSP, tl.TenTL, kt.TenKT, ms.TenMS, cl.TenCL, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp
+                    LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
+                    LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
+                    LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
+                    LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
 
 SELECT * FROM SanPham
-
+SELECT tl.TenTL FROM SanPham sp
+JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
 -- LoGo
 INSERT INTO LoGo (TenLG, Hinh, NgayTao, MoTa)
 VALUES
@@ -928,24 +939,24 @@ VALUES
 SELECT * FROM TinNhan
 
 -- Đợt Giảm giá theo Sản phẩm
-INSERT INTO DotGiamGiaTheoSP (ID_DGG, ID_SP, GiaTriGG, DieuKienGiamGia, MoTa)
+INSERT INTO DotGiamGiaTheoSP (ID_DGG, ID_SP,TenSP, GiaTriGG, DieuKienGiamGia, MoTa)
 VALUES
-(1, 1, N'10%', N'Mua 2 áo phông trở lên', N'Ưu đãi mua số lượng'),
-(5, 2, N'5%', N'Mua 3 áo phông trở lên', N'Ưu đãi mua số lượng'),
-(2, 3, N'15%', N'Mua bất kỳ 4 áo phông nào', N'Khuyến mãi đặc biệt'),
-(3, 4, N'20%', N'Mua bất kỳ 2 áo phông cùng màu', N'Ưu đãi theo màu sắc'),
-(4, 5, N'25%', N'Mua bất kỳ áo phông nào có logo cụ thể', N'Ưu đãi theo logo')
+(1, 1,N'Áo phông nam', N'10%', N'Mua 2 áo phông trở lên', N'Ưu đãi mua số lượng'),
+(5, 2,N'Aó phông nữ', N'5%', N'Mua 3 áo phông trở lên', N'Ưu đãi mua số lượng'),
+(2, 3,N'Áo phông nam màu xanh dương', N'15%', N'Mua bất kỳ 4 áo phông nào', N'Khuyến mãi đặc biệt'),
+(3, 4, N'Áo phông nam màu đỏ', N'20%', N'Mua bất kỳ 2 áo phông cùng màu', N'Ưu đãi theo màu sắc'),
+(4, 5, N'Áo phông nam màu xám', N'25%', N'Mua bất kỳ áo phông nào có logo cụ thể', N'Ưu đãi theo logo')
  
  SELECT * FROM DotGiamGiaTheoSP
 
 -- Đợt Giảm giá theo Khách hàng
-INSERT INTO DotGiamGiaTheoKH (ID_DGG, ID_KH, GiaTriGG, DieuKienGiamGia, MoTa)
+INSERT INTO DotGiamGiaTheoKH (ID_DGG, ID_KH,TenKH, GiaTriGG, DieuKienGiamGia, MoTa)
 VALUES
-(1, 201, N'8%', N'Khách hàng VIP', N'Ưu đãi độc quyền cho khách hàng VIP'),
-(2, 202, N'12%', N'Khách hàng mới', N'Ưu đãi chào mừng cho khách hàng mới'),
-(3, 203, N'5%', N'Khách hàng thường xuyên mua sắm', N'Ưu đãi trung thành cho khách hàng thường xuyên'),
-(4, 204, N'10%', N'Khách hàng giới thiệu bạn bè', N'Ưu đãi chương trình giới thiệu'),
-(5, 205, N'15%', N'Khách hàng có sinh nhật trong tháng này', N'Ưu đãi đặc biệt cho sinh nhật')
+(1, 201,N'Khách hàng 1', N'8%', N'Khách hàng VIP', N'Ưu đãi độc quyền cho khách hàng VIP'),
+(2, 202,N'Khách hàng 2', N'12%', N'Khách hàng mới', N'Ưu đãi chào mừng cho khách hàng mới'),
+(3, 203,N'Khách hàng 3', N'5%', N'Khách hàng thường xuyên mua sắm', N'Ưu đãi trung thành cho khách hàng thường xuyên'),
+(4, 204,N'Khách hàng 4', N'10%', N'Khách hàng giới thiệu bạn bè', N'Ưu đãi chương trình giới thiệu'),
+(5, 205,N'Khách hàng 5', N'15%', N'Khách hàng có sinh nhật trong tháng này', N'Ưu đãi đặc biệt cho sinh nhật')
 
 SELECT * FROM DotGiamGiaTheoKH
 
@@ -980,6 +991,9 @@ ALTER TABLE dbo.Thuong
 ALTER TABLE dbo.PhieuGiamGia
     ADD CONSTRAINT FK_PhieuGiamGia_GiamGiaTheoSP
         FOREIGN KEY (ID_TSP) REFERENCES GiamGiaTheoSP(ID_TSP);
+
+		ALTER TABLE PhieuGiamGia
+		DROP CONSTRAINT FK_PhieuGiamGia_GiamGiaTheoSP
 
 ALTER TABLE dbo.PhieuGiamGia
     ADD CONSTRAINT FK_PhieuGiamGia_GiamGiaTheoKH

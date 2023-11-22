@@ -26,6 +26,8 @@ public class DotGiamGiaDAO implements Interface_DotGiamGia {
             while (rs.next()) {
                 DotGiamGia dgg = new DotGiamGia();
                 dgg.setID_DGG(rs.getInt("ID_DGG"));
+                dgg.setId_kh(rs.getInt("ID_TKH"));
+                dgg.setId_sp(rs.getInt("ID_TSP"));
                 dgg.setTenDGG(rs.getString("TeNDGG"));
                 dgg.setNgayBatDau(rs.getDate("NgayBatDau"));
                 dgg.setNgayKetThuc(rs.getDate("NgayKetThuc"));

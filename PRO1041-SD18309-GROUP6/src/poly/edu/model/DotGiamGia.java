@@ -19,11 +19,12 @@ public class DotGiamGia {
     private String giaTriGG;
     private String dieuKienGiamGia;
     private String moTa;
+    private int id_kh,id_sp;
 
     public DotGiamGia() {
     }
 
-    public DotGiamGia(int ID_DGG, String tenDGG, Date ngayBatDau, Date ngayKetThuc, String loaiGiamGia, String giaTriGG, String dieuKienGiamGia, String moTa) {
+    public DotGiamGia(int ID_DGG, String tenDGG, Date ngayBatDau, Date ngayKetThuc, String loaiGiamGia, String giaTriGG, String dieuKienGiamGia, String moTa, int id_kh, int id_sp) {
         this.ID_DGG = ID_DGG;
         this.tenDGG = tenDGG;
         this.ngayBatDau = ngayBatDau;
@@ -32,6 +33,8 @@ public class DotGiamGia {
         this.giaTriGG = giaTriGG;
         this.dieuKienGiamGia = dieuKienGiamGia;
         this.moTa = moTa;
+        this.id_kh = id_kh;
+        this.id_sp = id_sp;
     }
 
     public int getID_DGG() {
@@ -98,12 +101,26 @@ public class DotGiamGia {
         this.moTa = moTa;
     }
 
-    @Override
-    public String toString() {
-        return "DotGiamGia{" + "ID_DGG=" + ID_DGG + ", tenDGG=" + tenDGG + ", ngayBatDau=" + ngayBatDau + ", ngayKetThuc=" + ngayKetThuc + ", loaiGiamGia=" + loaiGiamGia + ", giaTriGG=" + giaTriGG + ", dieuKienGiamGia=" + dieuKienGiamGia + ", moTa=" + moTa + '}';
+    public int getId_kh() {
+        return id_kh;
     }
 
-    
-    
+    public void setId_kh(int id_kh) {
+        this.id_kh = id_kh;
+    }
+
+    public int getId_sp() {
+        return id_sp;
+    }
+
+    public void setId_sp(int id_sp) {
+        this.id_sp = id_sp;
+    }
+
+    @Override
+    public String toString() {
+        return "DotGiamGia{" + "ID_DGG=" + ID_DGG + ", tenDGG=" + tenDGG + ", ngayBatDau=" + ngayBatDau + ", ngayKetThuc=" + ngayKetThuc + ", loaiGiamGia=" + loaiGiamGia + ", giaTriGG=" + giaTriGG + ", dieuKienGiamGia=" + dieuKienGiamGia + ", moTa=" + moTa + ", id_kh=" + id_kh + ", id_sp=" + id_sp + '}';
+    }
+
     
 }

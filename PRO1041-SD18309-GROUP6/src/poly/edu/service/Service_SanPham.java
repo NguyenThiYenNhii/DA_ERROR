@@ -16,10 +16,10 @@ public class Service_SanPham implements Interface_sanPham {
         ArrayList<SanPham> list = new ArrayList<>();
         try {
             String sql = "SELECT sp.ID_SP, sp.TenSP, tl.TenTL, kt.TenKT, ms.TenMS, cl.TenCL, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp \n"
-                    + "JOIN MauSac ms ON ms.ID_MS = sp.ID_MS\n"
-                    + "JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL\n"
-                    + "JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL\n"
-                    + "JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT";
+                    + "LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS\n"
+                    + "LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL\n"
+                    + "LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL\n"
+                    + "LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT";
             Connection con = DBContext.getConnection();
             PreparedStatement pr = con.prepareStatement(sql);
             ResultSet rs = pr.executeQuery();
