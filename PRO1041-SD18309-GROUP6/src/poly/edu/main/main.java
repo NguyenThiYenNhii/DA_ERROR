@@ -9,8 +9,8 @@ import poly.edu.event.EventMenuSelected;
 import poly.edu.swing.MenuItem;
 import poly.edu.view.Home_Panel;
 import poly.edu.view.NhanVienTong_View;
+import poly.edu.view.PhieuGH_Panel;
 import poly.edu.view.PhieuGIAMGIA;
-import poly.edu.view.PhieuGiaoHang;
 import poly.edu.view.Products_Panel;
 import view.KhachHang_View;
 
@@ -36,15 +36,17 @@ public class main extends javax.swing.JFrame {
                 } else if (index == 3) {
                     setForm(new PhieuGIAMGIA());
                 } else if (index == 4) {
-                    setForm(new KhachHang_View());
+                    setForm(new PhieuGH_Panel());
                 } else if (index == 5) {
-                    setForm(new PhieuGiaoHang());
+                    // Đợt giảm giá
                 } else if (index == 6) {
+                    setForm(new KhachHang_View());
                 } else if (index == 7) {
+                    // Hóa Đơn
                 } else if (index == 8) {
                     setForm(new NhanVienTong_View());
                 } else if (index == 9) {
-                    setForm(new NhanVienTong_View());
+                    // Đăng xuất
                 }
             }
 

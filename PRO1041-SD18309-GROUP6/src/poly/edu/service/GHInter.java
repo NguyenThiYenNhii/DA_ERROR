@@ -8,4 +8,7 @@ public interface GHInter {
     Integer addGH(PhieuGiaoHang gh);
     Integer updateGH(PhieuGiaoHang gh);
     Integer deleteGH(int index, Integer maGH);
+    ArrayList<PhieuGiaoHang> selectById(String gh);
+    ArrayList<PhieuGiaoHang> selectByGH(int gh);
+    ArrayList<PhieuGiaoHang> selectByTT(int tt);
 }
