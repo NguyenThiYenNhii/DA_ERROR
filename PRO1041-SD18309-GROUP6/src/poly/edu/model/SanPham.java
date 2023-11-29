@@ -1,27 +1,29 @@
 
 package poly.edu.model;
 
+import java.math.BigDecimal;
+
 public class SanPham {
     private int id;
     private String tenSP;
-    private TheLoai theLoai;
-    private KichThuoc kichThuoc;
-    private MauSac mauSac;
-    private ChatLieu chatLieu;
-    private double donGia;
+    private TheLoai tl;
+    private KichThuoc kt;
+    private MauSac ms;
+    private ChatLieu cl;
+    private BigDecimal donGia;
     private int soLuongTon;
-    private String trangThai;
+    private int trangThai;
 
     public SanPham() {
     }
 
-    public SanPham(int id, String tenSP, TheLoai theLoai, KichThuoc kichThuoc, MauSac mauSac, ChatLieu chatLieu, double donGia, int soLuongTon, String trangThai) {
+    public SanPham(int id, String tenSP, TheLoai tl, KichThuoc kt, MauSac ms, ChatLieu cl, BigDecimal donGia, int soLuongTon, int trangThai) {
         this.id = id;
         this.tenSP = tenSP;
-        this.theLoai = theLoai;
-        this.kichThuoc = kichThuoc;
-        this.mauSac = mauSac;
-        this.chatLieu = chatLieu;
+        this.tl = tl;
+        this.kt = kt;
+        this.ms = ms;
+        this.cl = cl;
         this.donGia = donGia;
         this.soLuongTon = soLuongTon;
         this.trangThai = trangThai;
@@ -43,43 +45,43 @@ public class SanPham {
         this.tenSP = tenSP;
     }
 
-    public TheLoai getTheLoai() {
-        return theLoai;
+    public TheLoai getTl() {
+        return tl;
     }
 
-    public void setTheLoai(TheLoai theLoai) {
-        this.theLoai = theLoai;
+    public void setTl(TheLoai tl) {
+        this.tl = tl;
     }
 
-    public KichThuoc getKichThuoc() {
-        return kichThuoc;
+    public KichThuoc getKt() {
+        return kt;
     }
 
-    public void setKichThuoc(KichThuoc kichThuoc) {
-        this.kichThuoc = kichThuoc;
+    public void setKt(KichThuoc kt) {
+        this.kt = kt;
     }
 
-    public MauSac getMauSac() {
-        return mauSac;
+    public MauSac getMs() {
+        return ms;
     }
 
-    public void setMauSac(MauSac mauSac) {
-        this.mauSac = mauSac;
+    public void setMs(MauSac ms) {
+        this.ms = ms;
     }
 
-    public ChatLieu getChatLieu() {
-        return chatLieu;
+    public ChatLieu getCl() {
+        return cl;
     }
 
-    public void setChatLieu(ChatLieu chatLieu) {
-        this.chatLieu = chatLieu;
+    public void setCl(ChatLieu cl) {
+        this.cl = cl;
     }
 
-    public double getDonGia() {
+    public BigDecimal getDonGia() {
         return donGia;
     }
 
-    public void setDonGia(double donGia) {
+    public void setDonGia(BigDecimal donGia) {
         this.donGia = donGia;
     }
 
@@ -91,17 +93,13 @@ public class SanPham {
         this.soLuongTon = soLuongTon;
     }
 
-    public String getTrangThai() {
+    public int getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(String trangThai) {
+    public void setTrangThai(int trangThai) {
         this.trangThai = trangThai;
     }
 
-    @Override
-    public String toString() {
-        return "SanPham{" + "id=" + id + ", tenSP=" + tenSP + ", theLoai=" + theLoai + ", kichThuoc=" + kichThuoc + ", mauSac=" + mauSac + ", chatLieu=" + chatLieu + ", donGia=" + donGia + ", soLuongTon=" + soLuongTon + ", trangThai=" + trangThai + '}';
-    }
-
+    
 }

@@ -335,7 +335,6 @@ MoTa NVARCHAR(250)
 )
 GO
 
-SELECT * FROM TheLoai
 /*==============================================================*/
 /* 17. Table: Logo Công Ty                                      */
 /*==============================================================*/
@@ -790,21 +789,27 @@ INSERT INTO SanPham (ID_NCC, ID_MS, ID_TL, ID_CL, ID_KT, ID_GG, ID_HA, TenSP, Th
 (4, 4, 4, 4, 2, 2, 4, N'Áo phông nam màu đỏ', N'Áo phông Unisex', 'M', N'Đỏ',  N'Satin', 15, 10000, '2023-01-04', 5, 10, 1, N'Áo phông nam màu đỏ cá tính và phong cách'),
 (5, 2, 5, 5, 2, 3, 5, N'Áo phông nữ màu trắng', N'Áo phông thể thao', 'M', N'Trắng',  N'Kaki', 50, 200000, '2023-01-05', 1, 100, 1, N'Áo phông nữ màu xám nhẹ nhàng và duyên dáng');
 
-SELECT sp.ID_SP, sp.TenSP, sp.TheLoai, sp.KichThuoc, sp.MauSac, sp.ChatLieu, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp 
+SELECT sp.ID_SP, sp.TenSP, tl.TenTL, kt.TenKT, ms.TenMS, cl.TenCL, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp
 LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
 LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
 LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
 LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
+LEFT JOIN HinhAnh ha ON ha.ID_HA = sp.ID_HA
 
-SELECT sp.ID_SP, sp.TenSP, tl.TenTL, kt.TenKT, ms.TenMS, cl.TenCL, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp
-                    LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
-                    LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
-                    LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
-                    LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
+SELECT sp.ID_SP, sp.TenSP, sp.TheLoai, sp.KichThuoc, sp.MauSac, sp.ChatLieu, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp
+LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
+LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
+LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
+LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
+LEFT JOIN HinhAnh ha ON ha.ID_HA = sp.ID_HA
+					
 
+SELECT * FROM TheLoai
 SELECT * FROM SanPham
-SELECT tl.TenTL FROM SanPham sp
-JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
+SELECT * FROM KichThuoc
+SELECT * FROM ChatLieu
+SELECT * FROM MauSac
+
 -- LoGo
 INSERT INTO LoGo (TenLG, Hinh, NgayTao, MoTa)
 VALUES
@@ -863,22 +868,23 @@ SELECT * FROM PhieuGiaoHang
 -- Phiếu Giảm Giá
 INSERT INTO PhieuGiamGia (ID_KH, ID_SP, ID_TSP, ID_TKH, NgayBatDau, NgayHH, GiaTriGG, TrangThai, NgayTao, NgaySuDung, MoTa)
 VALUES
-(1, 20011, 101, 3, '2023-11-20', '2023-12-31', '10%', 1, '2023-11-15', NULL, N'Phiếu giảm giá cho khách hàng Nam'),
-(2, 20015, 102, 1, '2023-11-21', '2023-01-12', '15%', 0, '2023-01-18', NULL, N'Phiếu giảm giá cho khách hàng Bình'),
-(3, 20013, 103, 2, '2023-11-22', '2023-02-05', '20%', 0, '2023-11-17', NULL, N'Phiếu giảm giá cho khách hàng Cường'),
-(4, 20019, 104, 5, '2023-11-23', '2023-07-25', '25%', 1, '2023-07-28', NULL, N'Phiếu giảm giá cho khách hàng Duyên'),
-(5, 20017, 105, 4, '2023-11-24', '2023-08-22', '30%', 1, '2023-08-26', NULL, N'Phiếu giảm giá cho khách hàng Eros');
+(1, 1, 1, 3, '2023-11-20', '2023-12-31', '10%', 1, '2023-11-15', NULL, N'Phiếu giảm giá cho khách hàng Nam'),
+(2, 2, 2, 1, '2023-11-21', '2023-01-12', '15%', 0, '2023-01-18', NULL, N'Phiếu giảm giá cho khách hàng Bình'),
+(3, 3, 3, 2, '2023-11-22', '2023-02-05', '20%', 0, '2023-11-17', NULL, N'Phiếu giảm giá cho khách hàng Cường'),
+(4, 4, 4, 5, '2023-11-23', '2023-07-25', '25%', 1, '2023-07-28', NULL, N'Phiếu giảm giá cho khách hàng Duyên'),
+(5, 5, 5, 4, '2023-11-24', '2023-08-22', '30%', 1, '2023-08-26', NULL, N'Phiếu giảm giá cho khách hàng Eros');
+
 
 SELECT * FROM PhieuGiamGia
 
 -- Phiếu Giảm Giá Theo SP
 INSERT INTO GiamGiaTheoSP (ID_SP, GiaTriGG,Hinhthuc, DieuKienGG, MoTa)
 VALUES
-(20011, '10%', N'Áp dụng cho tất cả sản phẩm',N'Giảm theo(%)', N'Giảm giá 10% cho tất cả sản phẩm áo phông'),
-(20015, '15%', N'Áp dụng cho sản phẩm mới',N'Giảm theo số tiền' ,N'Giảm giá 15% cho sản phẩm áo phông mới'),
-(20013, '20%', N'Áp dụng cho hóa đơn từ 1 triệu đồng',N'Giảm theo(%)' ,N'Giảm giá 20% cho hóa đơn từ 1 triệu đồng'),
-(20019, '25%', N'Áp dụng cho sản phẩm nam',N'Giảm theo số tiền' ,N'Giảm giá 25% cho sản phẩm áo phông nam'),
-(20017, '30%', N'Áp dụng cho khách hàng VIP', N'Giảm theo(%)',N'Giảm giá 30% cho khách hàng VIP');
+(1, '10%', N'Áp dụng cho tất cả sản phẩm',N'Giảm theo(%)', N'Giảm giá 10% cho tất cả sản phẩm áo phông'),
+(2, '15%', N'Áp dụng cho sản phẩm mới',N'Giảm theo số tiền' ,N'Giảm giá 15% cho sản phẩm áo phông mới'),
+(3, '20%', N'Áp dụng cho hóa đơn từ 1 triệu đồng',N'Giảm theo(%)' ,N'Giảm giá 20% cho hóa đơn từ 1 triệu đồng'),
+(4, '25%', N'Áp dụng cho sản phẩm nam',N'Giảm theo số tiền' ,N'Giảm giá 25% cho sản phẩm áo phông nam'),
+(5, '30%', N'Áp dụng cho khách hàng VIP', N'Giảm theo(%)',N'Giảm giá 30% cho khách hàng VIP');
 
 SELECT * FROM GiamGiaTheoSP
 
@@ -952,22 +958,22 @@ VALUES
 -- Đợt Giảm giá theo Khách hàng
 INSERT INTO DotGiamGiaTheoKH (ID_DGG, ID_KH,TenKH, GiaTriGG, DieuKienGiamGia, MoTa)
 VALUES
-(1, 201,N'Khách hàng 1', N'8%', N'Khách hàng VIP', N'Ưu đãi độc quyền cho khách hàng VIP'),
-(2, 202,N'Khách hàng 2', N'12%', N'Khách hàng mới', N'Ưu đãi chào mừng cho khách hàng mới'),
-(3, 203,N'Khách hàng 3', N'5%', N'Khách hàng thường xuyên mua sắm', N'Ưu đãi trung thành cho khách hàng thường xuyên'),
-(4, 204,N'Khách hàng 4', N'10%', N'Khách hàng giới thiệu bạn bè', N'Ưu đãi chương trình giới thiệu'),
-(5, 205,N'Khách hàng 5', N'15%', N'Khách hàng có sinh nhật trong tháng này', N'Ưu đãi đặc biệt cho sinh nhật')
+(1, 1,N'Khách hàng 1', N'8%', N'Khách hàng VIP', N'Ưu đãi độc quyền cho khách hàng VIP'),
+(2, 2,N'Khách hàng 2', N'12%', N'Khách hàng mới', N'Ưu đãi chào mừng cho khách hàng mới'),
+(3, 3,N'Khách hàng 3', N'5%', N'Khách hàng thường xuyên mua sắm', N'Ưu đãi trung thành cho khách hàng thường xuyên'),
+(4, 4,N'Khách hàng 4', N'10%', N'Khách hàng giới thiệu bạn bè', N'Ưu đãi chương trình giới thiệu'),
+(5, 5,N'Khách hàng 5', N'15%', N'Khách hàng có sinh nhật trong tháng này', N'Ưu đãi đặc biệt cho sinh nhật')
 
 SELECT * FROM DotGiamGiaTheoKH
 
 -- Đợt Giảm Giá
 INSERT INTO DotGiamGia (ID_TKH, ID_TSP, TeNDGG, NgayBatDau, NgayKetThuc, LoaiGiamGia, GiaTriGG, DieuKienGiamGia, MoTa)
 VALUES
-    (1, 101, N'Ưu đãi cho khách hàng VIP', '2023-01-01', '2023-01-31', N'Theo sản phẩm', N'10%', N'Mua 2 áo phông trở lên', N'Ưu đãi mua số lượng'),
-    (2, 102, N'Ưu đãi cho thành viên mới', '2023-02-01', '2023-02-28', N'Theo sản phẩm', N'15%', N'Mua bất kỳ 3 áo phông nào', N'Ưu đãi cho thành viên mới đăng ký'),
-    (3, 103, N'Khuyến mãi mùa hè', '2023-03-01', '2023-04-30', N'Theo sản phẩm', N'20%', N'Mua bất kỳ 4 áo phông nào', N'Khuyến mãi mùa hè'),
-    (4, 104, N'Ưu đãi màu sắc', '2023-05-01', '2023-05-31', N'Theo sản phẩm', N'5%', N'Mua bất kỳ 2 áo phông cùng màu', N'Ưu đãi theo màu sắc'),
-    (5, 105, N'Ưu đãi đặc biệt cho logo', '2023-06-01', '2023-06-30', N'Theo sản phẩm', N'12%', N'Mua bất kỳ áo phông nào có logo cụ thể', N'Ưu đãi theo logo');
+    (1, 1, N'Ưu đãi cho khách hàng VIP', '2023-01-01', '2023-01-31', N'Theo sản phẩm', N'10%', N'Mua 2 áo phông trở lên', N'Ưu đãi mua số lượng'),
+    (2, 2, N'Ưu đãi cho thành viên mới', '2023-02-01', '2023-02-28', N'Theo sản phẩm', N'15%', N'Mua bất kỳ 3 áo phông nào', N'Ưu đãi cho thành viên mới đăng ký'),
+    (3, 3, N'Khuyến mãi mùa hè', '2023-03-01', '2023-04-30', N'Theo sản phẩm', N'20%', N'Mua bất kỳ 4 áo phông nào', N'Khuyến mãi mùa hè'),
+    (4, 4, N'Ưu đãi màu sắc', '2023-05-01', '2023-05-31', N'Theo sản phẩm', N'5%', N'Mua bất kỳ 2 áo phông cùng màu', N'Ưu đãi theo màu sắc'),
+    (5, 5, N'Ưu đãi đặc biệt cho logo', '2023-06-01', '2023-06-30', N'Theo sản phẩm', N'12%', N'Mua bất kỳ áo phông nào có logo cụ thể', N'Ưu đãi theo logo');
 
 SELECT * FROM DotGiamGia
 
@@ -990,7 +996,8 @@ ALTER TABLE dbo.Thuong
 
 ALTER TABLE dbo.PhieuGiamGia
     ADD CONSTRAINT FK_PhieuGiamGia_GiamGiaTheoSP
-        FOREIGN KEY (ID_TSP) REFERENCES GiamGiaTheoSP(ID_TSP); --- Lỗi
+        FOREIGN KEY (ID_TSP) REFERENCES GiamGiaTheoSP(ID_TSP); 
+
 
 ALTER TABLE dbo.PhieuGiamGia
     ADD CONSTRAINT FK_PhieuGiamGia_GiamGiaTheoKH

@@ -162,6 +162,11 @@ public class ViewPhieuGH extends javax.swing.JFrame {
         jLabel4.setText("Số DT");
 
         txtphieugh.setEditable(false);
+        txtphieugh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtphieughActionPerformed(evt);
+            }
+        });
 
         txtngaygiao.setDateFormatString("yyyy-MM-dd");
 
@@ -364,6 +369,10 @@ public class ViewPhieuGH extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtphieughActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtphieughActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtphieughActionPerformed
 
     
     public static void main(String args[]) {

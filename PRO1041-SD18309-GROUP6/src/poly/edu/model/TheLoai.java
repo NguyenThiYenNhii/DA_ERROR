@@ -10,14 +10,14 @@ package poly.edu.model;
  */
 public class TheLoai {
     private int id;
-    private String tenTL;
+    private String tl;
 
     public TheLoai() {
     }
 
-    public TheLoai(int id, String tenTL) {
+    public TheLoai(int id, String tl) {
         this.id = id;
-        this.tenTL = tenTL;
+        this.tl = tl;
     }
 
     public int getId() {
@@ -28,18 +28,18 @@ public class TheLoai {
         this.id = id;
     }
 
-    public String getTenTL() {
-        return tenTL;
+    public String getTl() {
+        return tl;
     }
 
-    public void setTenTL(String tenTL) {
-        this.tenTL = tenTL;
+    public void setTl(String tl) {
+        this.tl = tl;
     }
 
     @Override
     public String toString() {
-        return tenTL;
+        return tl;
     }
-    
-    
+
+   
 }

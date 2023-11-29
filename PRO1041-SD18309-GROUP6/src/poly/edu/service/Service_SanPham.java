@@ -11,22 +11,24 @@ import poly.edu.model.TheLoai;
 
 public class Service_SanPham implements Interface_sanPham {
 
+    Connection con = DBContext.getConnection();
+
     @Override
     public ArrayList<SanPham> getAllSanPham() {
         ArrayList<SanPham> list = new ArrayList<>();
         try {
-            String sql = "SELECT sp.ID_SP, sp.TenSP, tl.TenTL, kt.TenKT, ms.TenMS, cl.TenCL, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp \n"
-                    + "LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS\n"
-                    + "LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL\n"
-                    + "LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL\n"
-                    + "LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT";
-            Connection con = DBContext.getConnection();
+            String sql = "SELECT * FROM SanPham sp \n"
+            + "LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS\n"
+            + "LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL\n"
+            + "LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL\n"
+            + "LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT\n"
+            + "LEFT JOIN HinhAnh ha ON ha.ID_HA = sp.ID_HA";
             PreparedStatement pr = con.prepareStatement(sql);
             ResultSet rs = pr.executeQuery();
 
             while (rs.next()) {
                 TheLoai tl = new TheLoai();
-                tl.setTenTL(rs.getString("TenTL"));
+                tl.setTl(rs.getString("TenTL"));
 
                 KichThuoc kt = new KichThuoc();
                 kt.setTenKT(rs.getString("TenKT"));
@@ -40,13 +42,13 @@ public class Service_SanPham implements Interface_sanPham {
                 SanPham sp = new SanPham();
                 sp.setId(rs.getInt("ID_SP"));
                 sp.setTenSP(rs.getString("TenSP"));
-                sp.setTheLoai(tl);
-                sp.setChatLieu(cl);
-                sp.setMauSac(ms);
-                sp.setKichThuoc(kt);
-                sp.setDonGia(rs.getDouble("DonGia"));
+                sp.setTl(tl);
+                sp.setCl(cl);
+                sp.setMs(ms);
+                sp.setKt(kt);
+                sp.setDonGia(rs.getBigDecimal("DonGia"));
                 sp.setSoLuongTon(rs.getInt("SoLuongTon"));
-                sp.setTrangThai(rs.getString("TrangThai"));
+                sp.setTrangThai(rs.getInt("TrangThai"));
 
                 list.add(sp);
             }
@@ -59,14 +61,13 @@ public class Service_SanPham implements Interface_sanPham {
         ArrayList<TheLoai> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM TheLoai";
-            Connection con = DBContext.getConnection();
             PreparedStatement pr = con.prepareStatement(sql);
             ResultSet rs = pr.executeQuery();
 
             while (rs.next()) {
                 TheLoai tl = new TheLoai();
                 tl.setId(rs.getInt("ID_TL"));
-                tl.setTenTL(rs.getString("TenTL"));
+                tl.setTl(rs.getString("TenTL"));
 
                 list.add(tl);
             }
@@ -79,7 +80,6 @@ public class Service_SanPham implements Interface_sanPham {
         ArrayList<MauSac> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM MauSac";
-            Connection con = DBContext.getConnection();
             PreparedStatement pr = con.prepareStatement(sql);
             ResultSet rs = pr.executeQuery();
 
@@ -99,7 +99,6 @@ public class Service_SanPham implements Interface_sanPham {
         ArrayList<KichThuoc> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM KichThuoc";
-            Connection con = DBContext.getConnection();
             PreparedStatement pr = con.prepareStatement(sql);
             ResultSet rs = pr.executeQuery();
 
@@ -119,7 +118,6 @@ public class Service_SanPham implements Interface_sanPham {
         ArrayList<ChatLieu> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM ChatLieu";
-            Connection con = DBContext.getConnection();
             PreparedStatement pr = con.prepareStatement(sql);
             ResultSet rs = pr.executeQuery();
 
@@ -134,6 +132,27 @@ public class Service_SanPham implements Interface_sanPham {
         }
         return list;
     }
+//
+//    public Integer addSanPham(SanPham sp) {
+//        Integer row = null;
+//        String sql = "pr_Insert_SanPham";
+//        try {
+//            CallableStatement cbsm = con.prepareCall("{call pr_Insert_SanPham(?, ?, ?, ?, ?, ?, ?, ?)}");
+//            cbsm.setObject(1, sp.getTenSP());
+//            cbsm.setObject(2, sp.getTl().getTl());
+//            cbsm.setObject(3, sp.getKt().getTenKT());
+//            cbsm.setObject(4, sp.getMs().getTenMS());
+//            cbsm.setObject(5, sp.getCl().getTenCL());
+//            cbsm.setObject(6, sp.getDonGia());
+//            cbsm.setObject(7, sp.getSoLuongTon());
+//            cbsm.setObject(8, sp.getTrangThai());
+//
+//            row = cbsm.executeUpdate();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return row;
+//    }
 
     @Override
     public Integer add(SanPham sp) {
@@ -144,10 +163,10 @@ public class Service_SanPham implements Interface_sanPham {
         try {
             PreparedStatement pr = con.prepareStatement(sql);
             pr.setObject(1, sp.getTenSP());
-            pr.setObject(2, sp.getTheLoai().getTenTL());
-            pr.setObject(3, sp.getKichThuoc().getTenKT());
-            pr.setObject(4, sp.getMauSac().getTenMS());
-            pr.setObject(5, sp.getChatLieu().getTenCL());
+            pr.setObject(2, sp.getTl().getTl());
+            pr.setObject(3, sp.getKt().getTenKT());
+            pr.setObject(4, sp.getMs().getTenMS());
+            pr.setObject(5, sp.getCl().getTenCL());
             pr.setObject(6, sp.getDonGia());
             pr.setObject(7, sp.getSoLuongTon());
             pr.setObject(8, sp.getTrangThai());
@@ -168,15 +187,15 @@ public class Service_SanPham implements Interface_sanPham {
 
         try {
             PreparedStatement pr = con.prepareStatement(sql);
-            pr.setObject(1, sp.getTenSP());
-            pr.setObject(2, sp.getTheLoai().getTenTL());
-            pr.setObject(3, sp.getKichThuoc().getTenKT());
-            pr.setObject(4, sp.getMauSac().getTenMS());
-            pr.setObject(5, sp.getChatLieu().getTenCL());
-            pr.setObject(6, sp.getDonGia());
-            pr.setObject(7, sp.getSoLuongTon());
-            pr.setObject(8, sp.getTrangThai());
-            pr.setObject(9, sp.getId());
+//            pr.setObject(1, sp.getTenSP());
+//            pr.setObject(2, sp.getTheLoai());
+//            pr.setObject(3, sp.getKichThuoc());
+//            pr.setObject(4, sp.getMauSac());
+//            pr.setObject(5, sp.getChatLieu());
+//            pr.setObject(6, sp.getDonGia());
+//            pr.setObject(7, sp.getSoLuongTon());
+//            pr.setObject(8, sp.getTrangThai());
+//            pr.setObject(9, sp.getId());
 
             row = pr.executeUpdate();
         } catch (Exception e) {
