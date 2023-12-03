@@ -83,7 +83,7 @@ public class MenuItem extends javax.swing.JPanel {
         lblcon = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(400, 35));
+        setPreferredSize(new java.awt.Dimension(170, 35));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);
@@ -142,6 +142,9 @@ public class MenuItem extends javax.swing.JPanel {
                     sleep();
                     subMenu.get(i).setVisible(true);
                 }
+                showing = true;
+                getParent().repaint();
+                getParent().revalidate();
             }
         }).start();
     }
@@ -150,10 +153,14 @@ public class MenuItem extends javax.swing.JPanel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = subMenu.size() - 1; i>= 0; i++) {
+                for (int i = subMenu.size() - 1; i >= 0; i--) {
                     sleep();
                     subMenu.get(i).setVisible(false);
+                    subMenu.get(i).hideMenu();
                 }
+                getParent().repaint();
+                getParent().revalidate();
+                showing = false;
             }
         }).start();
     }

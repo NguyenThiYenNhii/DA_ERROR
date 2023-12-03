@@ -1,5 +1,5 @@
 
-package javaapplication2.model;
+package poly.edu.model;
 
 public class TaiKhoan {
     private int id;

@@ -2,15 +2,15 @@
 package poly.edu.view;
 
 import java.util.List;
-import javaapplication2.model.NhanVien;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import poly.edu.model.NhanVien;
 import poly.edu.repository.Auth;
-import poly.edu.service.NhanVien_Resository;
+import poly.edu.service.NhanVien_Respository;
 public class NhanVienTong_View extends javax.swing.JPanel {
 
     private DefaultTableModel dtm = new DefaultTableModel();
-    private NhanVien_Resository nvr = new NhanVien_Resository();
+    private NhanVien_Respository nvr = new NhanVien_Respository();
     private List<NhanVien> list_Tong;
     private int index = -1;
     

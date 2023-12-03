@@ -101,5 +101,22 @@ public class SanPham {
         this.trangThai = trangThai;
     }
 
+    @Override
+    public String toString() {
+        return tenSP;
+    }
     
+    public Object[] toDataRow(){
+        return new Object[]{
+            this.getId(),
+            this.getTenSP(),
+            this.getTl().getTl(),
+            this.getKt().getTenKT(),
+            this.getMs().getTenMS(),
+            this.getCl().getTenCL(),
+            this.getDonGia(),
+            this.getSoLuongTon(),
+            this.getTrangThai() == 0 ?  "Hết Hàng" : "Còn Hàng",
+        };
+    }
 }

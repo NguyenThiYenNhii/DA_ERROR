@@ -3,20 +3,20 @@ package poly.edu.view;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javaapplication2.model.ChucVu;
-import javaapplication2.model.NhanVien;
-import javaapplication2.model.TaiKhoan;
 import javax.swing.JOptionPane;
-import poly.edu.service.NhanVien_Resository;
+import poly.edu.model.ChucVu;
+import poly.edu.model.NhanVien;
+import poly.edu.model.TaiKhoan;
 import poly.edu.service.TaiKhoan_Respository;
+import poly.edu.service.NhanVien_Respository;
 
 public class View_ChiTietNhanVien extends javax.swing.JFrame {
 
     private int index;
     private List<NhanVien> listTong;
-    private final NhanVien_Resository nvr = new NhanVien_Resository();
+    private final NhanVien_Respository nvr = new NhanVien_Respository();
     private final TaiKhoan_Respository tkr = new TaiKhoan_Respository();
-    private View_NhanVien_Tong vT = new View_NhanVien_Tong();
+//    private View_ vT = new View_NhanVien_Tong();
 
     public View_ChiTietNhanVien(int row) {
         initComponents();

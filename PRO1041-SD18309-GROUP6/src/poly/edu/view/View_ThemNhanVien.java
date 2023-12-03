@@ -2,15 +2,15 @@
 package poly.edu.view;
 
 import java.text.SimpleDateFormat;
-import javaapplication2.model.NhanVien;
-import javaapplication2.model.TaiKhoan;
 import javax.swing.JOptionPane;
-import poly.edu.service.NhanVien_Resository;
+import poly.edu.model.NhanVien;
+import poly.edu.model.TaiKhoan;
+import poly.edu.service.NhanVien_Respository;
 
 public class View_ThemNhanVien extends javax.swing.JFrame {
 
-    private final NhanVien_Resository nvr = new NhanVien_Resository();
-    private View_NhanVien_Tong vT = new View_NhanVien_Tong();
+    private final NhanVien_Respository nvr = new NhanVien_Respository();
+    private NhanVienTong_View vT = new NhanVienTong_View();
     
     public View_ThemNhanVien() {
         initComponents();

@@ -3,16 +3,21 @@ package poly.edu.main;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import poly.edu.event.EventMenuSelected;
 import poly.edu.swing.MenuItem;
+import poly.edu.view.BanHang_Panel;
+import poly.edu.view.DotGiamGia1;
 import poly.edu.view.Home_Panel;
 import poly.edu.view.NhanVienTong_View;
 import poly.edu.view.PhieuGH_Panel;
 import poly.edu.view.PhieuGIAMGIA;
 import poly.edu.view.Products_Panel;
-import view.KhachHang_View;
+import poly.edu.view.KhachHang_View;
+import poly.edu.view.View_Login;
 
 /**
  *
@@ -22,6 +27,7 @@ public class main extends javax.swing.JFrame {
 
     public main() {
         initComponents();
+        
         setBackground(new Color(0, 0, 0, 0));
         menu.initMoving(main.this);
         menu.addEventMenuSelected(new EventMenuSelected() {
@@ -38,11 +44,11 @@ public class main extends javax.swing.JFrame {
                 } else if (index == 4) {
                     setForm(new PhieuGH_Panel());
                 } else if (index == 5) {
-                    // Đợt giảm giá
+                    setForm(new DotGiamGia1());
                 } else if (index == 6) {
                     setForm(new KhachHang_View());
                 } else if (index == 7) {
-                    // Hóa Đơn
+                    setForm(new BanHang_Panel());
                 } else if (index == 8) {
                     setForm(new NhanVienTong_View());
                 } else if (index == 9) {
@@ -53,7 +59,7 @@ public class main extends javax.swing.JFrame {
         });
         setForm(new Home_Panel());
     }
-
+    
     private void setForm(JComponent com) {
         mainPanel.removeAll();
         mainPanel.add(com);
@@ -62,6 +68,7 @@ public class main extends javax.swing.JFrame {
     }
 
     private void addMenu(MenuItem... menu) {
+        
         for (int i = 0; i < menu.length; i++) {
             MenuItem menuItem = menu[i];
 

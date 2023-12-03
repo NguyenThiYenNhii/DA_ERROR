@@ -1,5 +1,5 @@
 
-package javaapplication2.model;
+package poly.edu.model;
 
 public class ChucVu {
     private int id;

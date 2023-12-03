@@ -2,24 +2,128 @@
 USE DU_AN_1
 GO
 
--- Thêm sản phẩm
-
-IF OBJECT_ID('pr_Insert_SanPham') IS NOT NULL
-DROP PROCEDURE pr_Insert_SanPham
+-- Nhi
+--- Thêm
+IF OBJECT_ID('insert_SanPham') IS NOT NULL
+DROP PROCEDURE insert_SanPham
 GO
 
-CREATE PROC pr_Insert_SanPham
+CREATE PROC insert_SanPham
 	@TenSP NVARCHAR(50), @TheLoai NVARCHAR(50), @KichThuoc NVARCHAR(50),
 	@MauSac NVARCHAR(50), @ChatLieu NVARCHAR(50), @DonGia MONEY, 
 	@SoLuongTon INT, @TrangThai INT
 AS
 BEGIN
-	INSERT INTO SanPham(TenSP, TheLoai, KichThuoc, MauSac, ChatLieu, DonGia, SoLuongTon, TrangThai) VALUES
-		(@TenSP,@TheLoai,@KichThuoc,@MauSac,@ChatLieu,@DonGia,@SoLuongTon,@TrangThai);
+	SET NOCOUNT ON;
+	DECLARE @id_tl INT;
+	INSERT INTO dbo.TheLoai(TenTL) VALUES(@TheLoai);
+	SET @id_tl = SCOPE_IDENTITY();	
+	DECLARE @id_kt INT;
+	INSERT INTO dbo.KichThuoc(TenKT) VALUES(@KichThuoc);
+	SET @id_kt = SCOPE_IDENTITY();
+	DECLARE @id_ms INT;
+	INSERT INTO dbo.MauSac(TenMS) VALUES(@MauSac);
+	SET @id_ms = SCOPE_IDENTITY();
+	DECLARE @id_cl INT;
+	INSERT INTO dbo.ChatLieu(TenCL) VALUES(@ChatLieu);
+	SET @id_cl = SCOPE_IDENTITY();
+
+	INSERT INTO SanPham(TenSP, ID_TL, ID_KT, ID_MS, ID_CL, DonGia, SoLuongTon, TrangThai) VALUES
+		(@TenSP,@id_tl,@id_kt,@id_ms,@id_cl,@DonGia,@SoLuongTon,@TrangThai);
 END;
 
-SELECT * FROM SanPham
+--- Cập nhật
+IF OBJECT_ID('update_SanPham') IS NOT NULL
+DROP PROCEDURE update_SanPham
+GO
 
+
+CREATE PROCEDURE update_SanPham
+    @id_sp INT, 
+    @TenSP NVARCHAR(50), 
+    @TheLoai NVARCHAR(50), 
+    @KichThuoc NVARCHAR(50),
+    @MauSac NVARCHAR(50), 
+    @ChatLieu NVARCHAR(50), 
+    @DonGia MONEY, 
+    @SoLuongTon INT, 
+    @TrangThai INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Cập nhật thông tin bảng TheLoai
+    DECLARE @id_tl INT;
+    UPDATE dbo.TheLoai SET TenTL = @TheLoai WHERE ID_TL = (SELECT ID_TL FROM dbo.SanPham WHERE ID_SP = @id_sp);
+    SET @id_tl = (SELECT ID_TL FROM dbo.SanPham WHERE ID_SP = @id_sp);
+
+    -- Cập nhật thông tin bảng KichThuoc
+    DECLARE @id_kt INT;
+    UPDATE dbo.KichThuoc SET TenKT = @KichThuoc WHERE ID_KT = (SELECT ID_KT FROM dbo.SanPham WHERE ID_SP = @id_sp);
+    SET @id_kt = (SELECT ID_KT FROM dbo.SanPham WHERE ID_SP = @id_sp);
+
+    -- Cập nhật thông tin bảng MauSac
+    DECLARE @id_ms INT;
+    UPDATE dbo.MauSac SET TenMS = @MauSac WHERE ID_MS = (SELECT ID_MS FROM dbo.SanPham WHERE ID_SP = @id_sp);
+    SET @id_ms = (SELECT ID_MS FROM dbo.SanPham WHERE ID_SP = @id_sp);
+
+    -- Cập nhật thông tin bảng ChatLieu
+    DECLARE @id_cl INT;
+    UPDATE dbo.ChatLieu SET TenCL = @ChatLieu WHERE ID_CL = (SELECT ID_CL FROM dbo.SanPham WHERE ID_SP = @id_sp);
+    SET @id_cl = (SELECT ID_CL FROM dbo.SanPham WHERE ID_SP = @id_sp);
+
+    -- Cập nhật thông tin bảng SanPham
+    UPDATE dbo.SanPham
+    SET 
+        TenSP = @TenSP,
+        ID_TL = @id_tl,
+        ID_KT = @id_kt,
+        ID_MS = @id_ms,
+        ID_CL = @id_cl,
+        DonGia = @DonGia,
+        SoLuongTon = @SoLuongTon,
+        TrangThai = @TrangThai
+    WHERE ID_SP = @id_sp;
+END;
+
+--Xóa
+IF OBJECT_ID('delete_SanPham') IS NOT NULL
+DROP PROCEDURE delete_SanPham
+GO
+
+CREATE PROCEDURE delete_SanPham
+    @id_sp INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Xóa dữ liệu từ bảng SanPham
+    DELETE FROM dbo.SanPham WHERE ID_SP = @id_sp;
+
+    -- Xóa dữ liệu từ các bảng liên quan (TheLoai, KichThuoc, MauSac, ChatLieu) nếu cần
+    DECLARE @id_tl INT, @id_kt INT, @id_ms INT, @id_cl INT;
+
+    -- Lấy các ID từ bảng SanPham
+    SELECT @id_tl = ID_TL, @id_kt = ID_KT, @id_ms = ID_MS, @id_cl = ID_CL
+    FROM dbo.SanPham
+    WHERE ID_SP = @id_sp;
+
+    -- Xóa dữ liệu từ bảng TheLoai
+    IF @id_tl IS NOT NULL
+        DELETE FROM dbo.TheLoai WHERE ID_TL = @id_tl;
+
+    -- Xóa dữ liệu từ bảng KichThuoc
+    IF @id_kt IS NOT NULL
+        DELETE FROM dbo.KichThuoc WHERE ID_KT = @id_kt;
+
+    -- Xóa dữ liệu từ bảng MauSac
+    IF @id_ms IS NOT NULL
+        DELETE FROM dbo.MauSac WHERE ID_MS = @id_ms;
+
+    -- Xóa dữ liệu từ bảng ChatLieu
+    IF @id_cl IS NOT NULL
+        DELETE FROM dbo.ChatLieu WHERE ID_CL = @id_cl;
+END;
 
 -- Thiện
 IF OBJECT_ID('insert_PhieuGiaoHang') IS NOT NULL

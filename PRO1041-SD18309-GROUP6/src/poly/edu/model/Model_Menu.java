@@ -3,6 +3,7 @@ package poly.edu.model;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import poly.edu.swing.MenuItem;
 
 /**
  *

@@ -1,6 +1,6 @@
 package poly.edu.repository;
 
-import javaapplication2.model.NhanVien;
+import poly.edu.model.NhanVien;
 
 public class Auth {
     public static NhanVien user = null;

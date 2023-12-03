@@ -7,6 +7,8 @@ GO
 USE DU_AN_1
 GO
 
+select*from HoaDon
+
 /*==============================================================*/
 /* 1. Table: Chức Vụ                                            */
 /*==============================================================*/
@@ -16,7 +18,7 @@ DROP TABLE ChucVu
 GO
 
 CREATE TABLE ChucVu 
-(ID_CV INT IDENTITY(1,1) PRIMARY KEY,
+(ID_CV BIGINT IDENTITY(1,1) PRIMARY KEY,
 TenCV NVARCHAR(50),
 MoTa NVARCHAR(250)
 )
@@ -32,8 +34,8 @@ GO
 
 CREATE TABLE Luong
 (
-ID_Luong INT IDENTITY(1,1) PRIMARY KEY,
-ID_NV INT,
+ID_Luong BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_NV BIGINT,
 MucLuong MONEY,
 NgayTra DATE,
 MoTa NVARCHAR(250) 
@@ -50,8 +52,8 @@ GO
 
 CREATE TABLE Thuong
 (
-ID_Thuong INT IDENTITY(1,1) PRIMARY KEY,
-ID_NV INT,
+ID_Thuong BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_NV BIGINT,
 NgayThuong DATE,
 MoTa NVARCHAR(250) 
 )
@@ -67,8 +69,8 @@ DROP TABLE PhieuGiaoCa
 GO
 	
 CREATE TABLE PhieuGiaoCa(
-	ID_PGK INT IDENTITY(1,1) PRIMARY KEY,
-	ID_NV INT,
+	ID_PGK BIGINT IDENTITY(1,1) PRIMARY KEY,
+	ID_NV BIGINT,
 	TenNV NVARCHAR(50),
 	TGBD DATETIME,
 	TGKT DATETIME,
@@ -89,8 +91,8 @@ DROP TABLE PhieuChamCong
 GO
 
 CREATE TABLE PhieuChamCong (
-    ID_Phieu INT IDENTITY(1,1) PRIMARY KEY,
-    ID_NV INT,
+    ID_Phieu BIGINT IDENTITY(1,1) PRIMARY KEY,
+    ID_NV BIGINT,
     NgayCham DATE,
     GioVao TIME,
     GioRa TIME,
@@ -107,13 +109,13 @@ GO
 
 CREATE TABLE NhanVien
 (
-ID_NV INT IDENTITY(1,1) PRIMARY KEY,
-ID_CV INT,
-ID_TK INT,
+ID_NV BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_CV BIGINT,
+ID_TK BIGINT,
 TenNV NVARCHAR(50),
 Email NVARCHAR(50),
 SoDienThoai VARCHAR(11),
-GioiTinh Bit,
+GioiTinh BIT,
 NgaySinh DATE,
 DiaChi NVARCHAR(250)
 )
@@ -129,7 +131,7 @@ GO
 
 CREATE TABLE TaiKhoan
 (
-ID_TK INT IDENTITY(1,1) PRIMARY KEY,
+ID_TK BIGINT IDENTITY(1,1) PRIMARY KEY,
 TenTK NVARCHAR(50),
 MatKhau NVARCHAR(50)
 )
@@ -145,7 +147,7 @@ GO
 
 CREATE TABLE KhachHang
 (
-ID_KH INT IDENTITY(1,1) PRIMARY KEY,
+ID_KH BIGINT IDENTITY(1,1) PRIMARY KEY,
 TenKH NVARCHAR(50),
 MatKhau NVARCHAR(50),
 GioiTinh NVARCHAR(10),
@@ -166,15 +168,15 @@ GO
 
 CREATE TABLE HoaDon
 (
-ID_HD INT IDENTITY(1,1) PRIMARY KEY,
-ID_KH INT,
-ID_NV INT,
-ID_TT INT,
-ID_VC INT,
-ID_GH INT,
-ID_CT INT,
-ID_GG INT,
-ID_DGG INT,
+ID_HD BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_KH BIGINT,
+ID_NV BIGINT,
+ID_TT BIGINT,
+ID_VC BIGINT,
+ID_GH BIGINT,
+ID_CT BIGINT,
+ID_GG BIGINT,
+ID_DGG BIGINT,
 NgayDat DATE,
 NgayCan DATE,
 NgayGiao DATE,
@@ -198,12 +200,12 @@ GO
 
 CREATE TABLE ChiTietHoaDon
 (
-ID_CT INT IDENTITY(1,1) PRIMARY KEY,
-ID_HD INT,
-ID_SP INT,
-ID_GG INT,
-ID_GH INT,
-ID_DGG INT,
+ID_CT BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_HD BIGINT,
+ID_SP BIGINT,
+ID_GG BIGINT,
+ID_GH BIGINT,
+ID_DGG BIGINT,
 TenSP NVARCHAR(50),
 DonGia MONEY,
 SoLuong INT
@@ -220,7 +222,7 @@ GO
 
 CREATE TABLE MauSac
 (
-ID_MS INT IDENTITY(1,1) PRIMARY KEY,
+ID_MS BIGINT IDENTITY(1,1) PRIMARY KEY,
 TenMS NVARCHAR(50),
 Hinh NVARCHAR(50),
 TrangThai BIT,
@@ -238,7 +240,7 @@ GO
 
 CREATE TABLE TheLoai
 (
-ID_TL INT IDENTITY(1,1) PRIMARY KEY,
+ID_TL BIGINT IDENTITY(1,1) PRIMARY KEY,
 TenTL NVARCHAR(50),
 Hinh NVARCHAR(50),
 TrangThai BIT,
@@ -256,7 +258,7 @@ GO
 
 CREATE TABLE KichThuoc
 (
-ID_KT INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+ID_KT BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 TenKT NVARCHAR(50),
 GiaTriKT NVARCHAR(50),
 TrangThai BIT,
@@ -275,8 +277,8 @@ GO
 
 CREATE TABLE ChatLieu
 (
-ID_CL INT IDENTITY(1,1) PRIMARY KEY,
-ID_SP INT,
+ID_CL BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_SP BIGINT,
 TenCL NVARCHAR(50),
 Hinh NVARCHAR(50),
 TrangThai BIT,
@@ -294,9 +296,9 @@ GO
 
 CREATE TABLE HinhAnh
 (
-ID_HA INT IDENTITY(1,1) PRIMARY KEY,
-ID_SP INT,
-URL VARCHAR(50),
+ID_HA BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_SP BIGINT,
+Hinh NVARCHAR(50),
 DinhDang VARCHAR(50),
 KichThuoc FLOAT
 )
@@ -312,14 +314,14 @@ GO
 
 CREATE TABLE SanPham
 (
-ID_SP INT IDENTITY(1,1) PRIMARY KEY,
-ID_NCC INT,
-ID_MS INT,
-ID_TL INT,
-ID_CL INT,
-ID_KT INT,
-ID_GG INT,
-ID_HA INT,
+ID_SP BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_NCC BIGINT,
+ID_MS BIGINT,
+ID_TL BIGINT,
+ID_CL BIGINT,
+ID_KT BIGINT,
+ID_GG BIGINT,
+ID_HA BIGINT,
 TenSP NVARCHAR(50),
 TheLoai NVARCHAR(50),
 KichThuoc NVARCHAR(50),
@@ -331,9 +333,12 @@ NgaySanXuat DATE,
 SoLuongTon INT,
 SoLuotXem INT,
 TrangThai BIT,
+Hinh NVARCHAR(50),
 MoTa NVARCHAR(250) 
 )
 GO
+
+-- 
 
 /*==============================================================*/
 /* 17. Table: Logo Công Ty                                      */
@@ -382,16 +387,16 @@ GO
 
 CREATE TABLE NhaCungCap
 (
-ID_NCC INT IDENTITY(1,1) PRIMARY KEY,
-ID_LG INT,
-ID_NLL INT,
-ID_SP INT,
+ID_NCC BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_LG BIGINT,
+ID_NLL BIGINT,
+ID_SP BIGINT,
 TenCT NVARCHAR(50),
 MaLG INT,
 MaNLL INT,
 Email NVARCHAR(50),
 DienThoai CHAR(10),
-DiaChi NVARCHAR(50),
+DiaChi NVARCHAR(250),
 MoTa NVARCHAR(250) 
 )
 GO
@@ -619,6 +624,10 @@ CREATE TABLE DotGiamGiaTheoKH(
 )
 GO
 
+SELECT * FROM SanPham sp 
+JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
+WHERE T
+
 --THÊM DỮ LIỆU
 
 -- Chức Vụ
@@ -782,26 +791,30 @@ INSERT INTO HinhAnh VALUES
 SELECT * FROM HinhAnh
 
 ---SẢN PHẨM
-INSERT INTO SanPham (ID_NCC, ID_MS, ID_TL, ID_CL, ID_KT, ID_GG, ID_HA, TenSP, TheLoai, KichThuoc, MauSac, ChatLieu, SoLuong, DonGia, NgaySanXuat, SoLuongTon, SoLuotXem, TrangThai, MoTa) VALUES
-(1, 1, 1, 1, 1, 1, 1, N'Áo phông nam màu đen', N'Áo phông nam', 'S', N'Đen',  N'Cotton', 50, 200000, '2023-01-01', 1, 100, 1, N'Áo phông nam màu đen thông thoáng và thoải mái'),
-(2, 2, 2, 2, 2, 1, 2, N'Áo phông nam màu trắng', N'Áo phông nữ', 'M', N'Trắng',  N'Len', 45, 180000, '2023-01-02', 1, 190, 1, N'Áo phông nam màu trắng đơn giản và thời trang'),
-(3, 2, 3, 3, 3, 2, 3, N'Áo phông nam màu xanh dương', N'Áo phông trẻ em', 'L', N'Trắng',  N'Polyester', 35, 300000, '2023-01-03', 1, 109, 1, N'Áo phông nam màu xanh dương năng động và trẻ trung'),
-(4, 4, 4, 4, 2, 2, 4, N'Áo phông nam màu đỏ', N'Áo phông Unisex', 'M', N'Đỏ',  N'Satin', 15, 10000, '2023-01-04', 5, 10, 1, N'Áo phông nam màu đỏ cá tính và phong cách'),
-(5, 2, 5, 5, 2, 3, 5, N'Áo phông nữ màu trắng', N'Áo phông thể thao', 'M', N'Trắng',  N'Kaki', 50, 200000, '2023-01-05', 1, 100, 1, N'Áo phông nữ màu xám nhẹ nhàng và duyên dáng');
+INSERT INTO SanPham (ID_NCC, ID_MS, ID_TL, ID_CL, ID_KT, ID_GG, ID_HA, TenSP, TheLoai, KichThuoc, MauSac, ChatLieu, SoLuong, DonGia, NgaySanXuat, SoLuongTon, SoLuotXem, TrangThai, Hinh, MoTa) VALUES
+(1, 1, 1, 1, 1, 1, 1, N'Áo phông nam màu đen', N'Áo phông nam', 'M', N'Đen',  N'Cotton', 50, 200000, '2023-01-01', 1, 100, 1,N'anh6.jpg', N'Áo phông nam màu đen thông thoáng và thoải mái'),
+(1, 1, 1, 1, 1, 1, 1, N'Áo phông nam màu đen', N'Áo phông nam', 'S', N'Đen',  N'Cotton', 50, 200000, '2023-01-01', 1, 100, 1,N'anh1.jpg', N'Áo phông nam màu đen thông thoáng và thoải mái'),
+(2, 2, 2, 2, 2, 1, 2, N'Áo phông nam màu trắng', N'Áo phông nữ', 'M', N'Trắng',  N'Len', 45, 180000, '2023-01-02', 1, 190, 1,N'anh2.jpg', N'Áo phông nam màu trắng đơn giản và thời trang'),
+(3, 2, 3, 3, 3, 2, 3, N'Áo phông nam màu xanh dương', N'Áo phông trẻ em', 'L', N'Trắng',  N'Polyester', 35, 300000, '2023-01-03', 1, 109, 1, N'anh3.jpg', N'Áo phông nam màu xanh dương năng động và trẻ trung'),
+(4, 4, 4, 4, 2, 2, 4, N'Áo phông nam màu đỏ', N'Áo phông Unisex', 'M', N'Đỏ',  N'Satin', 15, 10000, '2023-01-04', 5, 10, 1,N'anh4.jpg', N'Áo phông nam màu đỏ cá tính và phong cách'),
+(5, 2, 5, 5, 2, 3, 5, N'Áo phông nữ màu trắng', N'Áo phông thể thao', 'M', N'Trắng',  N'Kaki', 50, 200000, '2023-01-05', 1, 100, 1,N'anh5.jpg', N'Áo phông nữ màu xám nhẹ nhàng và duyên dáng');
 
-SELECT sp.ID_SP, sp.TenSP, tl.TenTL, kt.TenKT, ms.TenMS, cl.TenCL, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp
+SELECT * FROM SanPham WHERE TheLoai = N'Áo phông nam'
+
+SELECT * FROM SanPham sp
 LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
 LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
 LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
 LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
 LEFT JOIN HinhAnh ha ON ha.ID_HA = sp.ID_HA
+WHERE sp.TheLoai = N'Áo phông nam'
 
-SELECT sp.ID_SP, sp.TenSP, sp.TheLoai, sp.KichThuoc, sp.MauSac, sp.ChatLieu, sp.DonGia, sp.SoLuongTon, sp.TrangThai FROM SanPham sp
-LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
-LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
-LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
-LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
-LEFT JOIN HinhAnh ha ON ha.ID_HA = sp.ID_HA
+SELECT * FROM SanPham sp
+ JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
+ JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
+ JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
+ JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
+ JOIN HinhAnh ha ON ha.ID_HA = sp.ID_HA
 					
 
 SELECT * FROM TheLoai
@@ -1061,3 +1074,11 @@ ALTER TABLE dbo.DotGiamGiaTheoSP
 ALTER TABLE dbo.DotGiamGiaTheoKH
     ADD CONSTRAINT FK_DotGiamGia_DotGiamGiaTheoKH
         FOREIGN KEY (ID_DGG) REFERENCES DotGiamGia(ID_DGG);
+
+
+SELECT * FROM SanPham sp
+JOIN MauSac ms ON ms.ID_MS = sp.ID_MS
+JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
+JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
+JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
+WHERE TenSP LIKE N'% nữ %'
