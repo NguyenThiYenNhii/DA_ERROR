@@ -242,4 +242,48 @@ public class Service_SanPham implements Interface_sanPham {
         return list;
     }
     
+
+    public ArrayList<SanPham> getByName(String name) {
+        ArrayList<SanPham> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM SanPham sp \n"
+                    + "LEFT JOIN MauSac ms ON ms.ID_MS = sp.ID_MS\n"
+                    + "LEFT JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL\n"
+                    + "LEFT JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL\n"
+                    + "LEFT JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT\n"
+                    + "WHERE sp.TenSP LIKE N'%"+name+"%'";
+            PreparedStatement ppstm = con.prepareStatement(sql);
+            ResultSet rs = ppstm.executeQuery();
+            while (rs.next()) {
+                TheLoai tl = new TheLoai();
+                tl.setTl(rs.getString("TenTL"));
+
+                KichThuoc kt = new KichThuoc();
+                kt.setTenKT(rs.getString("TenKT"));
+
+                MauSac ms = new MauSac();
+                ms.setTenMS(rs.getString("TenMS"));
+
+                ChatLieu cl = new ChatLieu();
+                cl.setTenCL(rs.getString("TenCL"));
+
+                SanPham sp = new SanPham();
+                sp.setId(rs.getInt("ID_SP"));
+                sp.setTenSP(rs.getString("TenSP"));
+                sp.setTl(tl);
+                sp.setCl(cl);
+                sp.setMs(ms);
+                sp.setKt(kt);
+                sp.setDonGia(rs.getBigDecimal("DonGia"));
+                sp.setSoLuongTon(rs.getInt("SoLuongTon"));
+                sp.setTrangThai(rs.getInt("TrangThai"));
+
+                list.add(sp);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
 }

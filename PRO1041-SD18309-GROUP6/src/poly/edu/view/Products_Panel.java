@@ -640,10 +640,10 @@ public class Products_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_rdo_hetActionPerformed
 
     private void txt_timKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_timKiemActionPerformed
-        try {
-            search();
-        } catch (Exception e) {
-        }
+//        try {
+//            search();
+//        } catch (Exception e) {
+//        }
     }//GEN-LAST:event_txt_timKiemActionPerformed
 
     private void cbo_locTheLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_locTheLoaiActionPerformed
@@ -677,7 +677,29 @@ public class Products_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_cbo_locTheLoaiMouseClicked
 
     private void txt_timKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_timKiemKeyReleased
-        
+        String sanPham =  txt_timKiem.getText();
+        model.setRowCount(0);
+
+        try {
+
+            ArrayList<SanPham> listFind = service.getByName(sanPham);
+
+            for (SanPham sp : listFind) {
+                model.addRow(new Object[]{
+                    sp.getId(),
+                    sp.getTenSP(),
+                    sp.getTl().getTl(),
+                    sp.getKt().getTenKT(),
+                    sp.getMs().getTenMS(),
+                    sp.getCl().getTenCL(),
+                    sp.getDonGia(),
+                    sp.getSoLuongTon(),
+                    sp.getTrangThai() == 0 ? "Hết Hàng" : "Còn Hàng"
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
     }//GEN-LAST:event_txt_timKiemKeyReleased
 
     private void btn_clear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clear1ActionPerformed
