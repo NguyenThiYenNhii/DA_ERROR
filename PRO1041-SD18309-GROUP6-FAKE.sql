@@ -185,3 +185,6 @@ join GiamGiaTheoKH on PhieuGiamGia.MaKH = GiamGiaTheoKH.MaKH
 
 insert into SanPham(MaSP, TenSP, MaTL, MaCL, MaKT, MaMS, SoLuong, DonGia)
 join MauSac on SanPham.MaMS= MauSac.MaMS
+
+
+Select * from HoaDon

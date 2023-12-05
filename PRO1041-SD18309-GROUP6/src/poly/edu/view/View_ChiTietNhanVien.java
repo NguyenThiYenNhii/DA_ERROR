@@ -3,6 +3,8 @@ package poly.edu.view;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import poly.edu.model.ChucVu;
 import poly.edu.model.NhanVien;
@@ -276,6 +278,22 @@ public class View_ChiTietNhanVien extends javax.swing.JFrame {
                 mess("Bạn Chưa Nhập Đủ Thông Tin Vui Lòng Kiểm Tra Lại");
                 return;
             }
+            
+            if (checkValidate() == true) {
+                mess("Bạn chưa nhập đủ thông tin");
+                return;
+            }
+            
+            if(!isValidEmail(txt_Email.getText())){
+                mess("Bạn nhập không đúng định dạng Email");
+                return;
+            }
+            
+            if(!isValidPhoneNumber(txt_SDT.getText())){
+                mess("Bạn nhập không đúng định dạng SDT");
+                return;
+            }
+            
             NhanVien nv = getInputNhanVien();
             TaiKhoan tk = getTaiKhoan();
 
@@ -416,7 +434,21 @@ public class View_ChiTietNhanVien extends javax.swing.JFrame {
         }
         return false;
     }
-
+    
+    private boolean isValidEmail(String email) {
+        String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+    
+   private boolean isValidPhoneNumber(String phoneNumber) {
+        String regex = "^0\\d{9}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
+    }
+    
     public void clearForm() {
         String t = "";
         txtA_GhiChu.setText(t);

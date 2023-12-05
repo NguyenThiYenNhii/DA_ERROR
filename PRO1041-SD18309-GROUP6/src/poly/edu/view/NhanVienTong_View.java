@@ -16,6 +16,7 @@ public class NhanVienTong_View extends javax.swing.JPanel {
     
     public NhanVienTong_View() {
         initComponents();
+        loadData();
     }
 
     public void loadData() {
@@ -43,6 +44,7 @@ public class NhanVienTong_View extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_NhanVien = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -120,6 +122,7 @@ public class NhanVienTong_View extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Lọc Theo Chức Vụ"));
 
+        buttonGroup1.add(rdo_QuanLy);
         rdo_QuanLy.setText("Quản Lý");
         rdo_QuanLy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +130,7 @@ public class NhanVienTong_View extends javax.swing.JPanel {
             }
         });
 
+        buttonGroup1.add(rdo_NhanVien);
         rdo_NhanVien.setText("Nhân Viên");
         rdo_NhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,6 +285,7 @@ public class NhanVienTong_View extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

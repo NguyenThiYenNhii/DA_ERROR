@@ -6,7 +6,11 @@ package poly.edu.view;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -14,10 +18,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import poly.edu.model.ChatLieu;
 import poly.edu.model.KichThuoc;
+import poly.edu.model.Lavie;
 import poly.edu.model.MauSac;
 import poly.edu.model.SanPham;
 import poly.edu.model.TheLoai;
 import poly.edu.repository.DBContext;
+import poly.edu.service.HoaDonRepository;
+import poly.edu.service.SanPhamRepository;
 import poly.edu.service.Service_SanPham;
 
 /**
@@ -58,6 +65,8 @@ public class Products_Panel extends javax.swing.JPanel {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel9 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -95,15 +104,21 @@ public class Products_Panel extends javax.swing.JPanel {
         btn_xuatFile = new javax.swing.JButton();
         pnlwebcam = new javax.swing.JPanel();
         btn_reload = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         btn_update1 = new javax.swing.JButton();
         btn_add1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_thuocTinh = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
         jPanel18 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        lbl_TenTT = new javax.swing.JLabel();
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Quản lý sản phẩm")));
 
@@ -122,6 +137,12 @@ public class Products_Panel extends javax.swing.JPanel {
         jLabel15.setText("Đơn Giá");
 
         jLabel16.setText("Số Lượng Tồn");
+
+        cbo_theLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbo_theLoaiActionPerformed(evt);
+            }
+        });
 
         jLabel17.setText("Trạng Thái");
 
@@ -304,6 +325,13 @@ public class Products_Panel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Thuộc tính");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -329,7 +357,8 @@ public class Products_Panel extends javax.swing.JPanel {
                                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(btn_nhapFile, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(btn_xuatFile, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(btn_reload, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                            .addComponent(btn_reload, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)))
                                     .addGroup(jPanel12Layout.createSequentialGroup()
                                         .addComponent(jLabel11)
                                         .addGap(18, 18, 18)
@@ -338,7 +367,7 @@ public class Products_Panel extends javax.swing.JPanel {
                                             .addComponent(txt_tenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
+                                .addGap(72, 72, 72)
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
                                     .addComponent(jLabel14)
@@ -348,13 +377,15 @@ public class Products_Panel extends javax.swing.JPanel {
                                     .addComponent(cbo_kichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbo_mauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbo_chatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel12Layout.createSequentialGroup()
-                                    .addComponent(btn_add)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btn_update))
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(43, 43, 43)
+                            .addGroup(jPanel12Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel12Layout.createSequentialGroup()
+                                        .addComponent(btn_add)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btn_update))
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(19, 19, 19)
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel12Layout.createSequentialGroup()
                                 .addComponent(btn_delete)
@@ -420,15 +451,21 @@ public class Products_Panel extends javax.swing.JPanel {
                             .addComponent(pnlwebcam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                                 .addComponent(btn_reload)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_nhapFile)
-                                .addGap(12, 12, 12)
-                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btn_xuatFile)
-                                    .addComponent(btn_add)
-                                    .addComponent(btn_update)
-                                    .addComponent(btn_delete)
-                                    .addComponent(btn_clear1)))))
+                                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel12Layout.createSequentialGroup()
+                                        .addGap(53, 53, 53)
+                                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(btn_add)
+                                            .addComponent(btn_update)
+                                            .addComponent(btn_delete)
+                                            .addComponent(btn_clear1)))
+                                    .addGroup(jPanel12Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btn_nhapFile)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btn_xuatFile))))))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -499,6 +536,28 @@ public class Products_Panel extends javax.swing.JPanel {
 
         jLabel1.setText("Tên thuộc tính");
 
+        buttonGroup3.add(jRadioButton1);
+        jRadioButton1.setText("Thể Loại");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup3.add(jRadioButton2);
+        jRadioButton2.setText("Màu sắc");
+
+        buttonGroup3.add(jRadioButton3);
+        jRadioButton3.setText("Kích Thước");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup3.add(jRadioButton4);
+        jRadioButton4.setText("Chất Liệu");
+
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
@@ -510,9 +569,18 @@ public class Products_Panel extends javax.swing.JPanel {
                     .addComponent(btn_add1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addComponent(txt_thuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(106, 106, 106)
+                        .addComponent(jRadioButton1)
+                        .addGap(27, 27, 27)
+                        .addComponent(jRadioButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jRadioButton4))
                     .addComponent(btn_update1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -520,25 +588,28 @@ public class Products_Panel extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(txt_thuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton3)
+                    .addComponent(jRadioButton4))
+                .addGap(32, 32, 32)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_add1)
-                    .addComponent(btn_update1))
-                .addContainerGap())
+                    .addComponent(btn_update1)))
         );
 
         jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin thuộc tính", javax.swing.border.TitledBorder.LEADING, javax.swing.border.TitledBorder.BELOW_TOP));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "STT", "Loại Thuộc Tính", "Tên Thuộc Tính"
+                "STT", "Tên Thuộc Tính"
             }
         ));
         jScrollPane2.setViewportView(jTable1);
@@ -547,11 +618,17 @@ public class Products_Panel extends javax.swing.JPanel {
         jPanel18.setLayout(jPanel18Layout);
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1007, Short.MAX_VALUE)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addComponent(lbl_TenTT, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                .addComponent(lbl_TenTT, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -703,7 +780,7 @@ public class Products_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_timKiemKeyReleased
 
     private void btn_clear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clear1ActionPerformed
-        // TODO add your handling code here:
+        clear();
     }//GEN-LAST:event_btn_clear1ActionPerformed
 
     private void btn_nhapFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nhapFileActionPerformed
@@ -728,6 +805,34 @@ public class Products_Panel extends javax.swing.JPanel {
         loadDataTable();
     }//GEN-LAST:event_btn_reloadActionPerformed
 
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void cbo_theLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_theLoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbo_theLoaiActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        model.setRowCount(0);
+
+        try {
+
+            for (TheLoai sp : service.getAllTheLoai()) {
+                model.addRow(new Object[]{
+                    sp.getId(),
+                    sp.getTl(),
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }  
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new ThuocTinhSP().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add;
@@ -741,11 +846,13 @@ public class Products_Panel extends javax.swing.JPanel {
     private javax.swing.JButton btn_xuatFile;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> cbo_chatLieu;
     private javax.swing.JComboBox<String> cbo_kichThuoc;
     private javax.swing.JComboBox<String> cbo_locTheLoai;
     private javax.swing.JComboBox<String> cbo_mauSac;
     private javax.swing.JComboBox<String> cbo_theLoai;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -764,11 +871,16 @@ public class Products_Panel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lbl_TenTT;
     private javax.swing.JPanel pnlwebcam;
     private javax.swing.JRadioButton rdo_con;
     private javax.swing.JRadioButton rdo_het;
@@ -777,6 +889,7 @@ public class Products_Panel extends javax.swing.JPanel {
     private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_soLuongTon;
     private javax.swing.JTextField txt_tenSP;
+    private javax.swing.JTextField txt_thuocTinh;
     private javax.swing.JTextField txt_timKiem;
     // End of variables declaration//GEN-END:variables
     private void init() {
@@ -865,6 +978,18 @@ public class Products_Panel extends javax.swing.JPanel {
             });
         }
     }
+//    private void loadDataTableTL()  {
+//        model.setRowCount(0);
+//
+//        ArrayList<TheLoai> list = service.getAllTheLoai();
+//
+//        for (TheLoai sp : list) {
+//            model.addRow(new Object[]{
+//                sp.getId(),
+//                sp.getTl(),
+//            });
+//        }
+//    }
 
     private void showDetail() {
         int index = tbl_list.getSelectedRow();

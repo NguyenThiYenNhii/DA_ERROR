@@ -20,5 +20,7 @@ public interface Integer_KhachHang {
     Integer update(KhachHang kh);
 
     Integer delete(int index, int ID);
+    
+    ArrayList <KhachHang> selectById (String sdt);
 
 }

@@ -44,6 +44,7 @@ public class KhachHang_View extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -74,19 +75,30 @@ public class KhachHang_View extends javax.swing.JPanel {
         btn_xoa = new javax.swing.JButton();
         btn_clear = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 204, 204));
+        setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 0, 0));
         jLabel1.setText("Quản Lý Khách Hàng");
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(102, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm khách hàng"));
         jPanel1.setAutoscrolls(true);
 
         jLabel2.setText("Số điện thoại:");
 
+        txt_tkiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_tkiemKeyReleased(evt);
+            }
+        });
+
         btn_tkiem.setText("Tìm kiếm");
+        btn_tkiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tkiemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,7 +124,7 @@ public class KhachHang_View extends javax.swing.JPanel {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        tbl_kh.setBackground(new java.awt.Color(255, 153, 153));
+        tbl_kh.setBackground(new java.awt.Color(51, 204, 255));
         tbl_kh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -131,7 +143,7 @@ public class KhachHang_View extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbl_kh);
 
-        jPanel2.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(51, 204, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin khách hàng"));
 
         jLabel3.setText("Mã khách hàng:");
@@ -148,8 +160,10 @@ public class KhachHang_View extends javax.swing.JPanel {
 
         jLabel9.setText("Trạng thái:");
 
+        buttonGroup1.add(rdo_moi);
         rdo_moi.setText("Khách hàng mới");
 
+        buttonGroup1.add(rdo_lau);
         rdo_lau.setText("Lâu năm");
 
         cbo_gioitinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -356,6 +370,17 @@ public class KhachHang_View extends javax.swing.JPanel {
         clearForm();
     }//GEN-LAST:event_btn_clearActionPerformed
 
+    private void txt_tkiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tkiemKeyReleased
+        try {
+            findat();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_txt_tkiemKeyReleased
+
+    private void btn_tkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tkiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_tkiemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_clear;
@@ -363,6 +388,7 @@ public class KhachHang_View extends javax.swing.JPanel {
     private javax.swing.JButton btn_them;
     private javax.swing.JButton btn_tkiem;
     private javax.swing.JButton btn_xoa;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbo_gioitinh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -440,7 +466,7 @@ public class KhachHang_View extends javax.swing.JPanel {
         txt_matkhau.setText(tbl_kh.getValueAt(index, 2).toString());
         txt_ngaysinh.setText(tbl_kh.getValueAt(index, 4).toString());
 
-        String cd = tbl_kh.getValueAt(index, 5).toString();
+        String cd = tbl_kh.getValueAt(index, 3).toString();
         cbo_gioitinh.setSelectedItem(cd);
         
         txt_sdt.setText(tbl_kh.getValueAt(index, 6).toString());
@@ -548,6 +574,25 @@ public class KhachHang_View extends javax.swing.JPanel {
         txt_ngaysinh.setText("");
         txt_diachi.setText("");
         txt_sdt.setText("");
+    }
+
+    private void findat() {
+        String sdt = txt_tkiem.getText();
+        model.setRowCount(0);
+        for (KhachHang khach : dao.selectById(sdt)){
+            model.addRow(new Object[]{
+                khach.getID(),
+                khach.getTen(),
+                khach.getMatkhau(),
+                khach.getNgaysinh(),
+                khach.getGioitinh(),
+                khach.getSdt(),
+                khach.getDiachi(),
+                khach.getTrangthai().equals("0") ? "TrangThai1" : "TrangThai2"
+                
+            
+        });
+        }
     }
 
 }

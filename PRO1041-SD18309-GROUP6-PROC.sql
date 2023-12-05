@@ -37,8 +37,7 @@ IF OBJECT_ID('update_SanPham') IS NOT NULL
 DROP PROCEDURE update_SanPham
 GO
 
-
-CREATE PROCEDURE update_SanPham
+CREATE PROC update_SanPham
     @id_sp INT, 
     @TenSP NVARCHAR(50), 
     @TheLoai NVARCHAR(50), 
@@ -124,6 +123,8 @@ BEGIN
     IF @id_cl IS NOT NULL
         DELETE FROM dbo.ChatLieu WHERE ID_CL = @id_cl;
 END;
+
+SELECT *FROM SanPham
 
 -- Thiện
 IF OBJECT_ID('insert_PhieuGiaoHang') IS NOT NULL
@@ -238,3 +239,164 @@ END;
 select *from DiaChi
 select*from NhanVien
 select*from KhachHang
+
+
+--MẠNH
+--Thêm
+
+CREATE PROCEDURE ins_PhieuGiamGia2
+    @tendgg NVARCHAR(50),
+    @masp INT,
+    @hinhthucgg NVARCHAR(50),
+    @ngaybatdau DATE,
+    @ngayhh DATE,
+    @gaitrigg NVARCHAR(50),
+    @trangthai BIT,
+    @dieukien NVARCHAR(50),
+    @mota NVARCHAR(250)
+AS
+BEGIN
+    SET NOCOUNT ON;
+	DECLARE @iddgg INT;
+    INSERT INTO dbo.DotGiamGia (TeNDGG)
+    VALUES (@tendgg);
+    SET @iddgg = SCOPE_IDENTITY();
+
+    DECLARE @idtsp NVARCHAR;
+    INSERT INTO dbo.GiamGiaTheoSP (Hinhthuc)
+    VALUES (@hinhthucgg);
+    SET @idtsp = SCOPE_IDENTITY();
+
+	DECLARE @idtsp2 NVARCHAR;
+    INSERT INTO dbo.GiamGiaTheoKH (DieuKienGG)
+    VALUES ( @dieukien);
+    SET @idtsp2 = SCOPE_IDENTITY();
+
+    INSERT INTO dbo.PhieuGiamGia (ID_DGG, ID_SP, ID_TSP, NgayBatDau, NgayHH, GiaTriGG, TrangThai,ID_TKH, MoTa)
+    VALUES (@iddgg, @masp, @idtsp, @ngaybatdau, @ngayhh, @gaitrigg, @trangthai,@idtsp2, @mota);
+    
+
+END;
+GO
+
+
+--Phong
+CREATE PROC insert_NhanVien_TaiKhoan
+	@id_Cv INT, @ten NVARCHAR(50), @email NVARCHAR(50), @sdt NVARCHAR(11),
+	@gioitinh BIT, @ngaysinh DATE, @diachi NVARCHAR(250), @tk NVARCHAR(50),
+	@mk NVARCHAR(50)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @id_tk INT;
+	INSERT INTO dbo.TaiKhoan (TenTK, MatKhau) VALUES(@tk,@mk);
+	SET @id_tk = SCOPE_IDENTITY();
+
+	INSERT INTO dbo.NhanVien (ID_CV, ID_TK, TenNV, Email, SoDienThoai, GioiTinh, NgaySinh, DiaChi) VALUES
+		(@id_Cv,@id_tk,@ten,@email,@sdt,@gioitinh,@ngaysinh,@diachi);
+END;
+
+EXEC dbo.insert_NhanVien_TaiKhoan 
+	@id_Cv = ?, @ten = ?, @email = ?, @sdt = ?, @gioitinh = ?,
+	@ngaysinh = ?, @diachi = ?, @tk = ?, @mk = ?;
+
+-- Hồng
+IF OBJECT_ID('insert_DotGiamGia') IS NOT NULL
+DROP PROCEDURE insert_DotGiamGia
+GO
+
+--Insert
+CREATE PROCEDURE insert_DotGiamGia
+	@TenSP NVARCHAR(50), @TenKH NVARCHAR(50),@TeNDGG NVARCHAR(500), @GiaTriGG NVARCHAR(250),  @NgayBatDau DATE,
+	@NgayKetThuc DATE, 
+	@DieuKienGiamGia NVARCHAR(50), @MoTa NVARCHAR(250)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @id_tsp INT;
+	INSERT INTO dbo.DotGiamGiaTheoSP(TenSP) VALUES(@TenSP);
+	SET @id_tsp = SCOPE_IDENTITY();	
+	DECLARE @id_tkh INT;
+	INSERT INTO dbo.DotGiamGiaTheoKH(TenKH) VALUES(@TenKH);
+	SET @id_tkh = SCOPE_IDENTITY();
+
+	INSERT INTO DotGiamGia( ID_TSP, ID_TKH,TeNDGG, GiaTriGG, NgayBatDau, NgayKetThuc,  DieuKienGiamGia, MoTa) VALUES
+		( @id_tsp, @id_tkh, @TeNDGG, @GiaTriGG, @NgayBatDau, @NgayKetThuc,@DieuKienGiamGia,@MoTa);
+END;
+
+EXECUTE insert_DotGiamGia N'a', N'KH2', N'rfskdj', N'20%', '2023-02-13', '2023-02-20', N'ẻwf', N'srw'
+SELECT * FROM DotGiamGia
+-- Cập nhật
+IF OBJECT_ID('update_DotGiamGia') IS NOT NULL
+DROP PROCEDURE update_DotGiamGia
+GO
+
+CREATE PROCEDURE update_DotGiamGia
+	@id_dgg INT,
+	@TenSP NVARCHAR(50), 
+	@TenKH NVARCHAR(50),
+	@TeNDGG NVARCHAR(500),
+	@GiaTriGG NVARCHAR(250), 
+	@NgayBatDau DATE,
+	@NgayKetThuc DATE, 
+	@DieuKienGiamGia NVARCHAR(50), 
+	@MoTa NVARCHAR(250)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Cập nhật thông tin bảng DotGiamGiaTheoSP
+    DECLARE @id_tsp INT;
+    UPDATE dbo.DotGiamGiaTheoSP SET TenSP = @TenSP WHERE ID_TSP = (SELECT ID_TSP FROM dbo.DotGiamGiaTheoSP WHERE ID_DGG = @id_dgg);
+    SET @id_tsp = (SELECT ID_TSP FROM dbo.DotGiamGiaTheoSP WHERE ID_DGG = @id_dgg);
+
+    -- Cập nhật thông tin bảng DotGiamGiaTheoKH
+    DECLARE @id_tkh INT;
+    UPDATE dbo.DotGiamGiaTheoKH SET TenKH = @TenKH WHERE ID_TKH = (SELECT ID_TKH FROM dbo.DotGiamGiaTheoKH WHERE ID_DGG = @id_dgg);
+    SET @id_tkh = (SELECT ID_TKH FROM dbo.DotGiamGiaTheoKH WHERE ID_DGG = @id_dgg);
+
+    UPDATE dbo.DotGiamGia
+    SET 
+        ID_TSP = @id_tsp,
+        ID_TKH = @id_tkh,
+		TeNDGG = @TeNDGG,
+		GiaTriGG = @GiaTriGG,
+        NgayBatDau = @NgayBatDau,
+        NgayKetThuc = @NgayKetThuc,
+        DieuKienGiamGia = @DieuKienGiamGia,
+        MoTa = @MoTa
+    WHERE ID_DGG = @id_dgg;
+END;
+
+-- Xóa
+IF OBJECT_ID('delete_DotGiamGia') IS NOT NULL
+DROP PROCEDURE delete_DotGiamGia
+GO
+
+CREATE PROCEDURE delete_DotGiamGia
+    @id_dgg INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Xóa dữ liệu từ bảng DotGiamGia
+    DELETE FROM dbo.DotGiamGia WHERE ID_DGG = @id_dgg;
+	-- Xóa dữ liệu từ các bảng liên quan 
+    DECLARE @id_tsp INT, @id_tkh INT;
+	-- Lấy các ID từ bảng DotGiamGi
+    SELECT @id_tsp = ID_TSP, @id_tkh = ID_TKH
+    FROM dbo.DotGiamGia
+    WHERE ID_DGG = @id_dgg;
+    -- Xóa dữ liệu từ bảng DotGiamGiaTheoSP
+    IF @id_tsp IS NOT NULL
+        DELETE FROM dbo.DotGiamGiaTheoSP WHERE ID_TSP = @id_tsp;
+
+    -- Xóa dữ liệu từ bảng DotGiamGiaTheoKH
+    IF @id_tkh IS NOT NULL
+        DELETE FROM dbo.DotGiamGiaTheoKH WHERE ID_TKH = @id_tkh;
+END;
+
+
+select *from PhieuGiamGia LEFT JOIN GiamGiaTheoSP on PhieuGiamGia.ID_SP = GiamGiaTheoSP.ID_SP
+                LEFT JOIN GiamGiaTheoKH on PhieuGiamGia.ID_TKH = GiamGiaTheoKH.ID_TKH
+                LEFT JOIN DotGiamGia on PhieuGiamGia.ID_DGG = DotGiamGia.ID_DGG

@@ -17,6 +17,7 @@ import poly.edu.repository.DBContext;
  *
  * @author ADMIN
  */
+
 public class DotGiamGiaDAO implements Interface_DotGiamGia {
 
     public ArrayList<DotGiamGia> getAllDotGiamGia() {
@@ -98,25 +99,18 @@ public class DotGiamGiaDAO implements Interface_DotGiamGia {
     @Override
     public Integer add(DotGiamGia dgg) {
         Integer row = null;
-        String sql = "INSERT INTO DotGiamGiaTheoKH(TenKH) VALUES (?)"
-                + "INSERT INTO DotGiamGiaTheoSP(TenSP) VALUES (?)"
-                + "INSERT INTO DotGiamGia( TeNDGG, NgayBatDau, NgayKetThuc, GiaTriGG, DieuKienGiamGia, MoTa) VALUES (?,?,?,?,?,?)";
         Connection con = DBContext.getConnection();
         try {
-            PreparedStatement pr = con.prepareStatement(sql);
-            DotGiamGiaTheoKH kh = new DotGiamGiaTheoKH();
-            DotGiamGiaTheoSP sp = new DotGiamGiaTheoSP();
-            pr.setObject(1, kh.getTenKH());
-            pr.setObject(2, sp.getTenSP());
-            pr.setObject(3, dgg.getTenDGG());
-            //pr.setObject(4, dgg.getTenSP().getTenSP());
-            //pr.setObject(5, dgg.getTenKH().getTenKH());
-            pr.setObject(4, dgg.getNgayBatDau());
-            pr.setObject(5, dgg.getNgayKetThuc());
-            pr.setObject(6, dgg.getGiaTriGG());
-            pr.setObject(7, dgg.getDieuKienGiamGia());
-            pr.setObject(8, dgg.getMoTa());
-            row = pr.executeUpdate();
+            CallableStatement cs = con.prepareCall("{call dbo.insert_DotGiamGia(?,?,?,?,?,?,?,?)}");
+            cs.setObject(1, dgg.getTenSP().getTenSP());
+            cs.setObject(2, dgg.getTenKH().getTenKH());
+            cs.setObject(3, dgg.getTenDGG());
+            cs.setObject(4, dgg.getGiaTriGG());
+            cs.setObject(5, dgg.getNgayBatDau());
+            cs.setObject(6, dgg.getNgayKetThuc());
+            cs.setObject(7, dgg.getDieuKienGiamGia());
+            cs.setObject(8, dgg.getMoTa());
+            row = cs.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -126,20 +120,19 @@ public class DotGiamGiaDAO implements Interface_DotGiamGia {
     @Override
     public Integer update(DotGiamGia dgg) {
         Integer row = null;
-        String sql = "UPDATE DotGiamGia SET TeNDGG = ?,TenSP=?, TenKH=?, NgayBatDau = ?, NgayKetThuc = ?, GiaTriGG = ?, DieuKienGiamGia= ?, MoTa = ? WHERE ID_DGG =?";
         Connection con = DBContext.getConnection();
         try {
-            PreparedStatement pr = con.prepareStatement(sql);
-            pr.setObject(9, dgg.getID_DGG());
-            pr.setObject(1, dgg.getTenDGG());
-            pr.setObject(2, dgg.getTenSP().getTenSP());
-            pr.setObject(3, dgg.getTenKH().getTenKH());
-            pr.setObject(4, dgg.getNgayBatDau());
-            pr.setObject(5, dgg.getNgayKetThuc());
-            pr.setObject(6, dgg.getGiaTriGG());
-            pr.setObject(7, dgg.getDieuKienGiamGia());
-            pr.setObject(8, dgg.getMoTa());
-            row = pr.executeUpdate();
+            CallableStatement cs = con.prepareCall("{call dbo.update_DotGiamGia(?,?,?,?,?,?,?,?,?)}");
+            cs.setObject(2, dgg.getTenSP().getTenSP());
+            cs.setObject(3, dgg.getTenKH().getTenKH());
+            cs.setObject(4, dgg.getTenDGG());
+            cs.setObject(5, dgg.getGiaTriGG());
+            cs.setObject(6, dgg.getNgayBatDau());
+            cs.setObject(7, dgg.getNgayKetThuc());
+            cs.setObject(8, dgg.getDieuKienGiamGia());
+            cs.setObject(9, dgg.getMoTa());
+            cs.setObject(1, dgg.getID_DGG());
+            row = cs.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -149,18 +142,16 @@ public class DotGiamGiaDAO implements Interface_DotGiamGia {
     @Override
     public Integer delete(int index, Integer ID_DGG) {
         Integer row = null;
-        String sql = "DELETE FROM DotGiamGia WHERE ID_DGG = ?";
         Connection con = DBContext.getConnection();
         try {
-            PreparedStatement pr = con.prepareStatement(sql);
-            pr.setObject(1, ID_DGG);
-            row = pr.executeUpdate();
+            CallableStatement cs = con.prepareCall("{call dbo.delete_DotGiamGia(?)}");
+            cs.setObject(1, ID_DGG);
+            row = cs.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }
         return row;
     }
-
     public List<DotGiamGia> getID_DGG(int ID_DGG) {
         List<DotGiamGia> listdgg = new ArrayList<>();
         try {
@@ -196,3 +187,4 @@ public class DotGiamGiaDAO implements Interface_DotGiamGia {
     
 
 }
+

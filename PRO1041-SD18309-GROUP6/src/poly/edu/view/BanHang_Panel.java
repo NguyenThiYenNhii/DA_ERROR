@@ -66,7 +66,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
         cbohttt.addItem("Tiền mặt");
         cbohttt.addItem("Quẹt thẻ");
         cbohttt.addItem("Chuyển khoản");
-        tenNv.setText(Auth.user.getTenNV());
+//        tenNv.setText(Auth.user.getTenNV());
 //        cbonv.addItem("Nguyễn Văn Long");
 //        cbonv.addItem("Trần Hà Linh");
         loadDatatoTable();
@@ -143,8 +143,6 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
         jSeparator15 = new javax.swing.JSeparator();
         jSeparator16 = new javax.swing.JSeparator();
         jButton13 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
         jSeparator17 = new javax.swing.JSeparator();
@@ -170,7 +168,6 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
         cboloctheloai = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         txtfind = new javax.swing.JTextField();
-        btnfind = new javax.swing.JButton();
 
         jMenuItem1.setText("Sửa sản phẩm");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -246,7 +243,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
 
         dateTao.setDateFormatString("YYYY,MM,dd");
 
-        tenNv.setText("jLabel1");
+        tenNv.setText("Phạm Quang Thiện");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -256,15 +253,6 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
             .addComponent(jSeparator9)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jButton10)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnthanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 54, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,7 +299,16 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                         .addContainerGap()
                         .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dateTao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(dateTao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnthanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jButton10)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 100, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -373,7 +370,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton10)
                     .addComponent(jButton11))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnthanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
@@ -419,10 +416,6 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                 jButton13ActionPerformed(evt);
             }
         });
-
-        jButton16.setText("Đã Giao");
-
-        jButton17.setText("Giao Hàng");
 
         jLabel25.setText("Địa Chỉ");
 
@@ -506,11 +499,6 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                                     .addComponent(jSeparator17)
                                     .addComponent(jTextField8)))
                             .addComponent(jSeparator16, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap())
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel12Layout.setVerticalGroup(
@@ -578,11 +566,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                 .addComponent(jSeparator16, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(219, 219, 219))
         );
@@ -624,7 +608,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
         );
 
         pnlwebcam.setBackground(new java.awt.Color(222, 231, 227));
-        pnlwebcam.setBorder(javax.swing.BorderFactory.createTitledBorder("QR"));
+        pnlwebcam.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "QR", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
         pnlwebcam.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel9.setBackground(new java.awt.Color(222, 231, 227));
@@ -733,15 +717,13 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
             }
         });
 
-        jLabel14.setText("Tìm kiếm theo mã");
+        jLabel14.setText("Tìm sản phẩm");
 
         txtfind.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtfindKeyReleased(evt);
             }
         });
-
-        btnfind.setText("Tìm");
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -751,7 +733,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane3))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(jLabel13)
@@ -761,8 +743,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtfind)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnfind)))
+                        .addGap(78, 78, 78)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -773,8 +754,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                     .addComponent(jLabel13)
                     .addComponent(cboloctheloai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14)
-                    .addComponent(txtfind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnfind))
+                    .addComponent(txtfind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -843,14 +823,22 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void btnthanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthanhToanActionPerformed
-        if (cbohttt.getSelectedIndex() == 1) {
-            txttienkhachdua.setText(lblcantt.getText().trim());
-            btnthanhToan.setEnabled(true);
-            lbltienthua.setText("0");
-        } else {
-            txttienkhachdua.setText("");
-            btnthanhToan.setEnabled(false);
-        }
+//        if (cbohttt.getSelectedIndex() == 1) {
+//            txttienkhachdua.setText(lblcantt.getText().trim());
+//            btnthanhToan.setEnabled(true);
+//            lbltienthua.setText("0");
+//        } else {
+//            txttienkhachdua.setText("");
+//            btnthanhToan.setEnabled(false);
+//        }
+    int index = tbldshd.getSelectedRow();
+    int chon = JOptionPane.showConfirmDialog(this, "Hoan tat thanh toan?");
+    if(chon != JOptionPane.YES_OPTION) return;
+    if(index >= 0){
+        molhd.removeRow(index);
+        molgh.setRowCount(0);
+    }
+    JOptionPane.showMessageDialog(this, "Thanh toan thanh cong");
     }//GEN-LAST:event_btnthanhToanActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
@@ -897,14 +885,15 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
         HoaDonRepository.loadDatatoGH(tblgiohang, listTong.get(rowsp), inp);
         lbltongdon.setText(HoaDonRepository.taiQuay(tblgiohang));
         lblcantt.setText(HoaDonRepository.taiQuay(tblgiohang));
+//        lbltienthua.setText(txttienkhachdua.getText() - lblcantt.getText());
         double kt = Double.parseDouble(txttienkhachdua.getText());
         double ctt = Double.parseDouble(lblcantt.getText());
-        //        double tt = kt - ctt;
+                double tt = kt - ctt;
         //        BigDecimal bd1 =  BigDecimal.valueof();
         //        add+, minus-, multiply, divide:
         //        System.out.println(tt);
         //        String tt = kt - (HoaDonRepository.taiQuay(tblgiohang));
-        //        lbltienthua.setText(String.valueOf(tt));
+                lbltienthua.setText(String.valueOf(tt));
         //        lbltienthua.setText(lblcantt.getText(HoaDonRepository.taiQuay(tblgiohang))- txttienkhachdua.getText());
     }//GEN-LAST:event_tblsanphamMouseClicked
 
@@ -947,7 +936,6 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnfind;
     private javax.swing.JButton btnthanhToan;
     private javax.swing.JButton btnxoasp;
     private javax.swing.JComboBox<String> cboht_dathang;
@@ -957,8 +945,6 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1131,7 +1117,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
         panel.setPreferredSize(size);
         panel.setFPSDisplayed(true);
 
-        pnlwebcam.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 100, 100));//set view webcam
+        pnlwebcam.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 120, 120));//set view webcam
         executor.execute(this);
     }
 

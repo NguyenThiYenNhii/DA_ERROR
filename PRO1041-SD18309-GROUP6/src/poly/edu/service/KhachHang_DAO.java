@@ -119,4 +119,31 @@ public class KhachHang_DAO implements Integer_KhachHang {
         return row;
     }
 
+    @Override
+    public ArrayList<KhachHang> selectById(String sdt) {
+        ArrayList<KhachHang> lst = new ArrayList<>();
+        Connection cn = DBContext.getConnection();
+        String sql ="SELECT * FROM KhachHang where DienThoai LIKE '%"+sdt+"%'";
+        try {
+            PreparedStatement pre = cn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                KhachHang k = new KhachHang();
+                k.setID(rs.getInt("ID_KH"));
+                k.setTen(rs.getString("TenKH"));
+                k.setMatkhau(rs.getString("MatKhau"));
+                k.setGioitinh(rs.getString("GioiTinh"));
+                k.setNgaysinh(rs.getDate("NgaySinh"));
+                k.setDiachi(rs.getString("DiaChi"));
+                k.setSdt(rs.getString("DienThoai"));
+                k.setTrangthai(rs.getString("TrangThai"));
+                lst.add(k);
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return lst;
+    }
+
 }

@@ -17,12 +17,11 @@ DROP TABLE ChucVu
 GO
 
 CREATE TABLE ChucVu 
-(ID_CV BIGINT IDENTITY(1,1) PRIMARY KEY,
+(ID_CV INT IDENTITY(1,1) PRIMARY KEY,
 TenCV NVARCHAR(50),
 MoTa NVARCHAR(250)
 )
 GO
-
 /*==============================================================*/
 /* 2. Table: Lương                                              */
 /*==============================================================*/
@@ -33,8 +32,8 @@ GO
 
 CREATE TABLE Luong
 (
-ID_Luong BIGINT IDENTITY(1,1) PRIMARY KEY,
-ID_NV BIGINT,
+ID_Luong INT IDENTITY(1,1) PRIMARY KEY,
+ID_NV INT,
 MucLuong MONEY,
 NgayTra DATE,
 MoTa NVARCHAR(250) 
@@ -51,8 +50,8 @@ GO
 
 CREATE TABLE Thuong
 (
-ID_Thuong BIGINT IDENTITY(1,1) PRIMARY KEY,
-ID_NV BIGINT,
+ID_Thuong INT IDENTITY(1,1) PRIMARY KEY,
+ID_NV INT,
 NgayThuong DATE,
 MoTa NVARCHAR(250) 
 )
@@ -68,8 +67,8 @@ DROP TABLE PhieuGiaoCa
 GO
 	
 CREATE TABLE PhieuGiaoCa(
-	ID_PGK BIGINT IDENTITY(1,1) PRIMARY KEY,
-	ID_NV BIGINT,
+	ID_PGK INT IDENTITY(1,1) PRIMARY KEY,
+	ID_NV INT,
 	TenNV NVARCHAR(50),
 	TGBD DATETIME,
 	TGKT DATETIME,
@@ -90,8 +89,8 @@ DROP TABLE PhieuChamCong
 GO
 
 CREATE TABLE PhieuChamCong (
-    ID_Phieu BIGINT IDENTITY(1,1) PRIMARY KEY,
-    ID_NV BIGINT,
+    ID_Phieu INT IDENTITY(1,1) PRIMARY KEY,
+    ID_NV INT,
     NgayCham DATE,
     GioVao TIME,
     GioRa TIME,
@@ -108,9 +107,9 @@ GO
 
 CREATE TABLE NhanVien
 (
-ID_NV BIGINT IDENTITY(1,1) PRIMARY KEY,
-ID_CV BIGINT,
-ID_TK BIGINT,
+ID_NV INT IDENTITY(1,1) PRIMARY KEY,
+ID_CV INT,
+ID_TK INT,
 TenNV NVARCHAR(50),
 Email NVARCHAR(50),
 SoDienThoai VARCHAR(11),
@@ -130,7 +129,7 @@ GO
 
 CREATE TABLE TaiKhoan
 (
-ID_TK BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_TK INT IDENTITY(1,1) PRIMARY KEY,
 TenTK NVARCHAR(50),
 MatKhau NVARCHAR(50)
 )
@@ -146,7 +145,7 @@ GO
 
 CREATE TABLE KhachHang
 (
-ID_KH BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_KH INT IDENTITY(1,1) PRIMARY KEY,
 TenKH NVARCHAR(50),
 MatKhau NVARCHAR(50),
 GioiTinh NVARCHAR(10),
@@ -167,15 +166,15 @@ GO
 
 CREATE TABLE HoaDon
 (
-ID_HD BIGINT IDENTITY(1,1) PRIMARY KEY,
-ID_KH BIGINT,
-ID_NV BIGINT,
-ID_TT BIGINT,
-ID_VC BIGINT,
-ID_GH BIGINT,
-ID_CT BIGINT,
-ID_GG BIGINT,
-ID_DGG BIGINT,
+ID_HD INT IDENTITY(1,1) PRIMARY KEY,
+ID_KH INT,
+ID_NV INT,
+ID_TT INT,
+ID_VC INT,
+ID_GH INT,
+ID_CT INT,
+ID_GG INT,
+ID_DGG INT,
 NgayDat DATE,
 NgayCan DATE,
 NgayGiao DATE,
@@ -199,12 +198,12 @@ GO
 
 CREATE TABLE ChiTietHoaDon
 (
-ID_CT BIGINT IDENTITY(1,1) PRIMARY KEY,
-ID_HD BIGINT,
-ID_SP BIGINT,
-ID_GG BIGINT,
-ID_GH BIGINT,
-ID_DGG BIGINT,
+ID_CT INT IDENTITY(1,1) PRIMARY KEY,
+ID_HD INT,
+ID_SP INT,
+ID_GG INT,
+ID_GH INT,
+ID_DGG INT,
 TenSP NVARCHAR(50),
 DonGia MONEY,
 SoLuong INT
@@ -221,7 +220,7 @@ GO
 
 CREATE TABLE MauSac
 (
-ID_MS BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_MS INT IDENTITY(1,1) PRIMARY KEY,
 TenMS NVARCHAR(50),
 Hinh NVARCHAR(50),
 TrangThai BIT,
@@ -239,7 +238,7 @@ GO
 
 CREATE TABLE TheLoai
 (
-ID_TL BIGINT IDENTITY(1,1) PRIMARY KEY,
+ID_TL INT IDENTITY(1,1) PRIMARY KEY,
 TenTL NVARCHAR(50),
 Hinh NVARCHAR(50),
 TrangThai BIT,
@@ -257,7 +256,7 @@ GO
 
 CREATE TABLE KichThuoc
 (
-ID_KT BIGINT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+ID_KT INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 TenKT NVARCHAR(50),
 GiaTriKT NVARCHAR(50),
 TrangThai BIT,
@@ -276,8 +275,8 @@ GO
 
 CREATE TABLE ChatLieu
 (
-ID_CL BIGINT IDENTITY(1,1) PRIMARY KEY,
-ID_SP BIGINT,
+ID_CL INT IDENTITY(1,1) PRIMARY KEY,
+ID_SP INT,
 TenCL NVARCHAR(50),
 Hinh NVARCHAR(50),
 TrangThai BIT,
@@ -295,8 +294,8 @@ GO
 
 CREATE TABLE HinhAnh
 (
-ID_HA BIGINT IDENTITY(1,1) PRIMARY KEY,
-ID_SP BIGINT,
+ID_HA INT IDENTITY(1,1) PRIMARY KEY,
+ID_SP INT,
 Hinh NVARCHAR(50),
 DinhDang VARCHAR(50),
 KichThuoc FLOAT
@@ -313,14 +312,14 @@ GO
 
 CREATE TABLE SanPham
 (
-ID_SP BIGINT IDENTITY(1,1) PRIMARY KEY,
-ID_NCC BIGINT,
-ID_MS BIGINT,
-ID_TL BIGINT,
-ID_CL BIGINT,
-ID_KT BIGINT,
-ID_GG BIGINT,
-ID_HA BIGINT,
+ID_SP INT IDENTITY(1,1) PRIMARY KEY,
+ID_NCC INT,
+ID_MS INT,
+ID_TL INT,
+ID_CL INT,
+ID_KT INT,
+ID_GG INT,
+ID_HA INT,
 TenSP NVARCHAR(50),
 TheLoai NVARCHAR(50),
 KichThuoc NVARCHAR(50),
@@ -386,10 +385,10 @@ GO
 
 CREATE TABLE NhaCungCap
 (
-ID_NCC BIGINT IDENTITY(1,1) PRIMARY KEY,
-ID_LG BIGINT,
-ID_NLL BIGINT,
-ID_SP BIGINT,
+ID_NCC INT IDENTITY(1,1) PRIMARY KEY,
+ID_LG INT,
+ID_NLL INT,
+ID_SP INT,
 TenCT NVARCHAR(50),
 MaLG INT,
 MaNLL INT,
@@ -458,6 +457,7 @@ CREATE TABLE PhieuGiamGia(
 	ID_GG INT IDENTITY(1,1) PRIMARY KEY,
     ID_KH INT,
     ID_SP INT,
+	ID_DGG INT,
 	ID_TSP INT,
 	ID_TKH INT,
     NgayBatDau DATE,
@@ -697,7 +697,7 @@ SELECT * FROM NhanVien
 -- Tài Khoản
 INSERT INTO TaiKhoan (TenTK, MatKhau)
 VALUES
-('a_account', 'a_password'),
+('admin', '123'),
 ('b_account', 'b_securepass'),
 ('c_account', 'c_pass123'),
 ('d_account', 'd_securepass'),
@@ -877,14 +877,13 @@ VALUES
 
 SELECT * FROM PhieuGiaoHang
 
--- Phiếu Giảm Giá
-INSERT INTO PhieuGiamGia (ID_KH, ID_SP, ID_TSP, ID_TKH, NgayBatDau, NgayHH, GiaTriGG, TrangThai, NgayTao, NgaySuDung, MoTa)
+INSERT INTO PhieuGiamGia (ID_DGG,ID_KH, ID_SP, ID_TSP, ID_TKH, NgayBatDau, NgayHH, GiaTriGG, TrangThai, NgayTao, NgaySuDung, MoTa)
 VALUES
-(1, 1, 1, 3, '2023-11-20', '2023-12-31', '10%', 1, '2023-11-15', NULL, N'Phiếu giảm giá cho khách hàng Nam'),
-(2, 2, 2, 1, '2023-11-21', '2023-01-12', '15%', 0, '2023-01-18', NULL, N'Phiếu giảm giá cho khách hàng Bình'),
-(3, 3, 3, 2, '2023-11-22', '2023-02-05', '20%', 0, '2023-11-17', NULL, N'Phiếu giảm giá cho khách hàng Cường'),
-(4, 4, 4, 5, '2023-11-23', '2023-07-25', '25%', 1, '2023-07-28', NULL, N'Phiếu giảm giá cho khách hàng Duyên'),
-(5, 5, 5, 4, '2023-11-24', '2023-08-22', '30%', 1, '2023-08-26', NULL, N'Phiếu giảm giá cho khách hàng Eros');
+(1,1, 20011, 1, 1, '2023-11-20', '2023-12-31', '10%', 1, '2023-11-15', NULL, N'Phiếu giảm giá cho khách hàng Nam'),
+(2,2, 20015, 2, 2, '2023-11-21', '2023-01-12', '15%', 0, '2023-01-18', NULL, N'Phiếu giảm giá cho khách hàng Bình'),
+(3,3, 20013, 3, 3, '2023-11-22', '2023-02-05', '20%', 0, '2023-11-17', NULL, N'Phiếu giảm giá cho khách hàng Cường'),
+(4,4, 20019, 4, 4, '2023-11-23', '2023-07-25', '25%', 1, '2023-07-28', NULL, N'Phiếu giảm giá cho khách hàng Duyên'),
+(5,5, 20017, 5, 5, '2023-11-24', '2023-08-22', '30%', 1, '2023-08-26', NULL, N'Phiếu giảm giá cho khách hàng Eros');
 
 
 SELECT * FROM PhieuGiamGia
@@ -892,11 +891,11 @@ SELECT * FROM PhieuGiamGia
 -- Phiếu Giảm Giá Theo SP
 INSERT INTO GiamGiaTheoSP (ID_SP, GiaTriGG,Hinhthuc, DieuKienGG, MoTa)
 VALUES
-(1, '10%', N'Áp dụng cho tất cả sản phẩm',N'Giảm theo(%)', N'Giảm giá 10% cho tất cả sản phẩm áo phông'),
-(2, '15%', N'Áp dụng cho sản phẩm mới',N'Giảm theo số tiền' ,N'Giảm giá 15% cho sản phẩm áo phông mới'),
-(3, '20%', N'Áp dụng cho hóa đơn từ 1 triệu đồng',N'Giảm theo(%)' ,N'Giảm giá 20% cho hóa đơn từ 1 triệu đồng'),
-(4, '25%', N'Áp dụng cho sản phẩm nam',N'Giảm theo số tiền' ,N'Giảm giá 25% cho sản phẩm áo phông nam'),
-(5, '30%', N'Áp dụng cho khách hàng VIP', N'Giảm theo(%)',N'Giảm giá 30% cho khách hàng VIP');
+(20011, '10%', N'Áp dụng cho tất cả sản phẩm',N'Giảm theo(%)', N'Giảm giá 10% cho tất cả sản phẩm áo phông'),
+(20015, '15%', N'Áp dụng cho sản phẩm mới',N'Giảm theo số tiền' ,N'Giảm giá 15% cho sản phẩm áo phông mới'),
+(20013, '20%', N'Áp dụng cho hóa đơn từ 1 triệu đồng',N'Giảm theo(%)' ,N'Giảm giá 20% cho hóa đơn từ 1 triệu đồng'),
+(20019, '25%', N'Áp dụng cho sản phẩm nam',N'Giảm theo số tiền' ,N'Giảm giá 25% cho sản phẩm áo phông nam'),
+(20017, '30%', N'Áp dụng cho khách hàng VIP', N'Giảm theo(%)',N'Giảm giá 30% cho khách hàng VIP');
 
 SELECT * FROM GiamGiaTheoSP
 
@@ -908,10 +907,6 @@ VALUES
 (3, 1, '10%', N'Áp dụng cho khách hàng đặc biệt', N'Giảm theo(%)', N'Giảm giá 10% cho khách hàng đặc biệt'),
 (4, 0, '8%', N'Áp dụng cho tất cả khách hàng',N'Giảm theo số tiền' ,N'Giảm giá 8% cho tất cả khách hàng'),
 (5, 1, '12%', N'Áp dụng cho khách hàng VIP', N'Giảm theo(%)', N'Giảm giá 12% cho khách hàng VIP');
-select *from PhieuGiamGia join GiamGiaTheoSP on PhieuGiamGia.ID_SP = GiamGiaTheoSP.ID_SP 
-            join DotGiamGia on PhieuGiamGia.ID_TSP = DotGiamGia. ID_TSP
-SELECT * FROM GiamGiaTheoKH
-
 -- Phương Thức Vận Chuyển
 INSERT INTO PhuongThucVanChuyen (HinhThucVC, MoTa)
 VALUES
@@ -1010,6 +1005,9 @@ ALTER TABLE dbo.PhieuGiamGia
     ADD CONSTRAINT FK_PhieuGiamGia_GiamGiaTheoSP
         FOREIGN KEY (ID_TSP) REFERENCES GiamGiaTheoSP(ID_TSP); 
 
+ALTER TABLE PhieuGiamGia
+    ADD CONSTRAINT FK_DotGiamGia_PhieuGiamGia
+        FOREIGN KEY (ID_DGG) REFERENCES DotGiamGia(ID_DGG); 
 
 ALTER TABLE dbo.PhieuGiamGia
     ADD CONSTRAINT FK_PhieuGiamGia_GiamGiaTheoKH
@@ -1065,6 +1063,14 @@ ALTER TABLE dbo.HoaDon
 
 ALTER TABLE dbo.ChatLieu
     ADD FOREIGN KEY (ID_SP) REFERENCES dbo.SanPham(ID_SP);
+
+ALTER TABLE DotGiamGiaTheoKH
+DROP CONSTRAINT FK_DotGiamGia_DotGiamGiaTheoKH; --
+
+
+ALTER TABLE dbo.DotGiamGia
+        ADD FOREIGN KEY (ID_TSP) REFERENCES DotGiamGiaTheoSP(ID_TSP), --
+		FOREIGN KEY (ID_TKH) REFERENCES DotGiamGiaTheoKH(ID_TKH);
 
 ALTER TABLE dbo.DotGiamGiaTheoSP
     ADD CONSTRAINT FK_DotGiamGia_DotGiamGiaTheoSP
