@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import poly.edu.model.HoaDon;
@@ -61,7 +63,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
         cboloctheloai.addItem("Áo phông trẻ em");
         cboloctheloai.addItem("Áo phông Unisex");
         cboloctheloai.addItem("Áo phông thể thao");
-       
+
         cbohttt.removeAllItems();
         cbohttt.addItem("Tiền mặt");
         cbohttt.addItem("Quẹt thẻ");
@@ -831,14 +833,16 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
 //            txttienkhachdua.setText("");
 //            btnthanhToan.setEnabled(false);
 //        }
-    int index = tbldshd.getSelectedRow();
-    int chon = JOptionPane.showConfirmDialog(this, "Hoan tat thanh toan?");
-    if(chon != JOptionPane.YES_OPTION) return;
-    if(index >= 0){
-        molhd.removeRow(index);
-        molgh.setRowCount(0);
-    }
-    JOptionPane.showMessageDialog(this, "Thanh toan thanh cong");
+        int index = tbldshd.getSelectedRow();
+        int chon = JOptionPane.showConfirmDialog(this, "Hoan tat thanh toan?");
+        if (chon != JOptionPane.YES_OPTION) {
+            return;
+        }
+        if (index >= 0) {
+            molhd.removeRow(index);
+            molgh.setRowCount(0);
+        }
+        JOptionPane.showMessageDialog(this, "Thanh toan thanh cong");
     }//GEN-LAST:event_btnthanhToanActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
@@ -888,12 +892,12 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
 //        lbltienthua.setText(txttienkhachdua.getText() - lblcantt.getText());
         double kt = Double.parseDouble(txttienkhachdua.getText());
         double ctt = Double.parseDouble(lblcantt.getText());
-                double tt = kt - ctt;
+        double tt = kt - ctt;
         //        BigDecimal bd1 =  BigDecimal.valueof();
         //        add+, minus-, multiply, divide:
         //        System.out.println(tt);
         //        String tt = kt - (HoaDonRepository.taiQuay(tblgiohang));
-                lbltienthua.setText(String.valueOf(tt));
+        lbltienthua.setText(String.valueOf(tt));
         //        lbltienthua.setText(lblcantt.getText(HoaDonRepository.taiQuay(tblgiohang))- txttienkhachdua.getText());
     }//GEN-LAST:event_tblsanphamMouseClicked
 
@@ -907,7 +911,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
     private void txtfindKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfindKeyReleased
         mol.setRowCount(0);
         String tim = txtfind.getText();
-        
+
         for (Lavie s : spr.selectbytheLoai(tim)) {
             mol.addRow(new Object[]{
                 s.getMaSP(),
@@ -1143,8 +1147,8 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
 
             try {
                 result = new MultiFormatReader().decode(bitmap);
-            } catch (NotFoundException e) {
-                //no result
+            } catch (NotFoundException ex) {
+                Logger.getLogger(BanHang_Panel.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if (result != null) {
@@ -1158,6 +1162,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                 if (inp == null) {
                     return;
                 }
+                
                 if (!inp.trim().matches("^\\d+")) {
                     JOptionPane.showMessageDialog(this, "Vui lòng nhập số");
                     return;

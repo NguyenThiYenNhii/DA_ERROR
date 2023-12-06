@@ -469,8 +469,8 @@ public class KhachHang_View extends javax.swing.JPanel {
         String cd = tbl_kh.getValueAt(index, 3).toString();
         cbo_gioitinh.setSelectedItem(cd);
         
-        txt_sdt.setText(tbl_kh.getValueAt(index, 6).toString());
-        txt_diachi.setText(tbl_kh.getValueAt(index, 5).toString());
+        txt_sdt.setText(tbl_kh.getValueAt(index, 5).toString());
+        txt_diachi.setText(tbl_kh.getValueAt(index, 6).toString());
         boolean vt = tbl_kh.getValueAt(index, 7).toString().equalsIgnoreCase("TrangThai1") ? true : false;
         rdo_moi.setSelected(vt);
         rdo_lau.setSelected(!vt);

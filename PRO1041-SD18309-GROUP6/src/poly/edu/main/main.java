@@ -17,6 +17,7 @@ import poly.edu.view.PhieuGH_Panel;
 import poly.edu.view.PhieuGIAMGIA;
 import poly.edu.view.Products_Panel;
 import poly.edu.view.KhachHang_View;
+import poly.edu.view.Logout;
 import poly.edu.view.View_Login;
 
 /**
@@ -52,7 +53,7 @@ public class main extends javax.swing.JFrame {
                 } else if (index == 8) {
                     setForm(new NhanVienTong_View());
                 } else if (index == 9) {
-                    // Đăng xuất
+                    setForm(new Logout());
                 }
             }
 
