@@ -65,5 +65,19 @@ public class TaiKhoan_Respository {
         return row;
     }
     
-
+    public Integer quenMK(String email, String pass){
+        Integer row = null;
+        String sql = "dbo.pro_QuenMatKhau";
+        try {
+            CallableStatement cbsm = conn.prepareCall("{call dbo.pro_QuenMatKhau(?, ?)}");
+            cbsm.setString(1, email);
+            cbsm.setString(2, pass);
+            
+            row = cbsm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return row;
+    }
+    
 }

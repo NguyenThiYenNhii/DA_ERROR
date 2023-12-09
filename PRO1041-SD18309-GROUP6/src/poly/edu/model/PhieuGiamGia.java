@@ -20,13 +20,13 @@ public class PhieuGiamGia {
    private String NgaySuDung;
    private String Mota;
    private String DieuKien;
- private String Hinh;
+ private String Hinhthuc;
  private String TenGG;
 
     public PhieuGiamGia() {
     }
 
-    public PhieuGiamGia(int MaGG, int MaKH, int MaTSP, int MaTKH, int MaSP, Date Ngaybatdau, Date NgayHH, String GiaTriGG, boolean trangthai, String Ngaytao, String NgaySuDung, String Mota, String DieuKien, String Hinh, String TenGG) {
+    public PhieuGiamGia(int MaGG, int MaKH, int MaTSP, int MaTKH, int MaSP, Date Ngaybatdau, Date NgayHH, String GiaTriGG, boolean trangthai, String Ngaytao, String NgaySuDung, String Mota, String DieuKien, String Hinhthuc, String TenGG) {
         this.MaGG = MaGG;
         this.MaKH = MaKH;
         this.MaTSP = MaTSP;
@@ -40,7 +40,7 @@ public class PhieuGiamGia {
         this.NgaySuDung = NgaySuDung;
         this.Mota = Mota;
         this.DieuKien = DieuKien;
-        this.Hinh = Hinh;
+        this.Hinhthuc = Hinhthuc;
         this.TenGG = TenGG;
     }
 
@@ -148,12 +148,12 @@ public class PhieuGiamGia {
         this.DieuKien = DieuKien;
     }
 
-    public String getHinh() {
-        return Hinh;
+    public String getHinhthuc() {
+        return Hinhthuc;
     }
 
-    public void setHinh(String Hinh) {
-        this.Hinh = Hinh;
+    public void setHinhthuc(String Hinhthuc) {
+        this.Hinhthuc = Hinhthuc;
     }
 
     public String getTenGG() {
@@ -166,7 +166,7 @@ public class PhieuGiamGia {
 
     @Override
     public String toString() {
-        return "PhieuGiamGia{" + "MaGG=" + MaGG + ", MaKH=" + MaKH + ", MaTSP=" + MaTSP + ", MaTKH=" + MaTKH + ", MaSP=" + MaSP + ", Ngaybatdau=" + Ngaybatdau + ", NgayHH=" + NgayHH + ", GiaTriGG=" + GiaTriGG + ", trangthai=" + trangthai + ", Ngaytao=" + Ngaytao + ", NgaySuDung=" + NgaySuDung + ", Mota=" + Mota + ", DieuKien=" + DieuKien + ", Hinh=" + Hinh + ", TenGG=" + TenGG + '}';
+        return "PhieuGiamGia{" + "MaGG=" + MaGG + ", MaKH=" + MaKH + ", MaTSP=" + MaTSP + ", MaTKH=" + MaTKH + ", MaSP=" + MaSP + ", Ngaybatdau=" + Ngaybatdau + ", NgayHH=" + NgayHH + ", GiaTriGG=" + GiaTriGG + ", trangthai=" + trangthai + ", Ngaytao=" + Ngaytao + ", NgaySuDung=" + NgaySuDung + ", Mota=" + Mota + ", DieuKien=" + DieuKien + ", Hinhthuc=" + Hinhthuc + ", TenGG=" + TenGG + '}';
     }
 
     

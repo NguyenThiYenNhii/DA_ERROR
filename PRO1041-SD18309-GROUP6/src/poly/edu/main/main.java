@@ -1,16 +1,12 @@
 package poly.edu.main;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import poly.edu.event.EventMenuSelected;
 import poly.edu.swing.MenuItem;
 import poly.edu.view.BanHang_Panel;
-import poly.edu.view.DotGiamGia1;
+import poly.edu.view.BanHang_Panel1;
+import poly.edu.view.DotGiamGia;
 import poly.edu.view.Home_Panel;
 import poly.edu.view.NhanVienTong_View;
 import poly.edu.view.PhieuGH_Panel;
@@ -18,7 +14,6 @@ import poly.edu.view.PhieuGIAMGIA;
 import poly.edu.view.Products_Panel;
 import poly.edu.view.KhachHang_View;
 import poly.edu.view.Logout;
-import poly.edu.view.View_Login;
 
 /**
  *
@@ -45,14 +40,16 @@ public class main extends javax.swing.JFrame {
                 } else if (index == 4) {
                     setForm(new PhieuGH_Panel());
                 } else if (index == 5) {
-                    setForm(new DotGiamGia1());
+                    setForm(new DotGiamGia());
                 } else if (index == 6) {
                     setForm(new KhachHang_View());
                 } else if (index == 7) {
-                    setForm(new BanHang_Panel());
+                    setForm(new BanHang_Panel1());
                 } else if (index == 8) {
                     setForm(new NhanVienTong_View());
                 } else if (index == 9) {
+                    setForm(new Logout()); // Thống kê
+                } else if (index == 10) {
                     setForm(new Logout());
                 }
             }

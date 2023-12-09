@@ -656,6 +656,11 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
             }
         ));
         tblgiohang.setComponentPopupMenu(jPopupMenu1);
+        tblgiohang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblgiohangMouseReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblgiohang);
 
         btnxoasp.setText("Xóa SP");
@@ -741,11 +746,10 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cboloctheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(78, 78, 78)
                         .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtfind)
-                        .addGap(78, 78, 78)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtfind)))
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -758,7 +762,8 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
                     .addComponent(jLabel14)
                     .addComponent(txtfind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -875,6 +880,7 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
         //            inp = JOptionPane.showInputDialog("Nhập số lượng");
         //        } catch (Exception e) {
         //        }
+        
         if (inp == null) {
             return;
         }
@@ -937,6 +943,10 @@ public class BanHang_Panel extends javax.swing.JPanel implements Runnable, Threa
             e.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void tblgiohangMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblgiohangMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblgiohangMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

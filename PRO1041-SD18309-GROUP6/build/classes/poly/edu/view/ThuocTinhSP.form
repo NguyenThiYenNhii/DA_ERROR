@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+  </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -136,6 +140,9 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton1">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Th&#x1ec3; Lo&#x1ea1;i"/>
           </Properties>
           <Events>
@@ -144,11 +151,18 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton2">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup1"/>
+            </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="M&#xe0;u s&#x1eaf;c"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton3">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="K&#xed;ch Th&#x1b0;&#x1edb;c"/>
           </Properties>
           <Events>
@@ -157,6 +171,9 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="jRadioButton4">
           <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="buttonGroup1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ch&#x1ea5;t Li&#x1ec7;u"/>
           </Properties>
         </Component>
@@ -199,18 +216,59 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable1">
+            <Component class="javax.swing.JTable" name="tbl_tt">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="2" rowCount="4">
-                    <Column editable="true" title="STT" type="java.lang.Object"/>
-                    <Column editable="true" title="T&#xea;n Thu&#x1ed9;c T&#xed;nh" type="java.lang.Object"/>
+                  <Table columnCount="3" rowCount="5">
+                    <Column editable="true" title="STT" type="java.lang.Object">
+                      <Data value="1"/>
+                      <Data value="2"/>
+                      <Data value="3"/>
+                      <Data value="4"/>
+                      <Data value="5"/>
+                    </Column>
+                    <Column editable="true" title="Lo&#x1ea1;i Thu&#x1ed9;c T&#xed;nh" type="java.lang.Object">
+                      <Data value="M&#xe0;u S&#x1eaf;c"/>
+                      <Data value="M&#xe0;u S&#x1eaf;c"/>
+                      <Data value="M&#xe0;u S&#x1eaf;c"/>
+                      <Data value="M&#xe0;u S&#x1eaf;c"/>
+                      <Data value="M&#xe0;u S&#x1eaf;c"/>
+                    </Column>
+                    <Column editable="true" title="T&#xea;n Thu&#x1ed9;c T&#xed;nh" type="java.lang.Object">
+                      <Data value="Xanh"/>
+                      <Data value="&#x110;&#x1ecf;"/>
+                      <Data value="Tr&#x1eaf;ng"/>
+                      <Data value="&#x110;en"/>
+                      <Data value="X&#xe1;m"/>
+                    </Column>
                   </Table>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                  </TableColumnModel>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_ttMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

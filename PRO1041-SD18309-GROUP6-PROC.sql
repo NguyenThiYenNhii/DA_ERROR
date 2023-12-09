@@ -32,6 +32,24 @@ BEGIN
 		(@TenSP,@id_tl,@id_kt,@id_ms,@id_cl,@DonGia,@SoLuongTon,@TrangThai);
 END;
 
+IF OBJECT_ID('insert_SanPhamCT') IS NOT NULL
+DROP PROCEDURE insert_SanPhamCT
+GO
+
+CREATE PROC insert_SanPhamCT
+	@TenSP NVARCHAR(50), @nhaCungCap NVARCHAR(50), @ngaySX DATE,
+	 @DonGia MONEY, @Hinh NVARCHAR(50)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @id_ncc INT;
+	INSERT INTO dbo.NhaCungCap(TenCT) VALUES(@nhaCungCap);
+	SET @id_ncc = SCOPE_IDENTITY();	
+	
+	INSERT INTO SanPham(TenSP, ID_NCC, NgaySanXuat, DonGia, Hinh) VALUES
+		(@TenSP,@id_ncc,@ngaySX,@DonGia, @Hinh);
+END;
+GO
 --- Cập nhật
 IF OBJECT_ID('update_SanPham') IS NOT NULL
 DROP PROCEDURE update_SanPham
@@ -85,6 +103,54 @@ BEGIN
     WHERE ID_SP = @id_sp;
 END;
 
+---Chi tiết SP
+IF OBJECT_ID('update_SanPhamCT') IS NOT NULL
+DROP PROCEDURE update_SanPhamCT
+GO
+
+CREATE PROCEDURE update_SanPhamCT
+	@idSP INT,
+	@TenSP NVARCHAR(50),
+	@nhaCungCap NVARCHAR(50),
+	@ngaySX DATE,
+	@DonGia MONEY,
+	@Hinh NVARCHAR(50)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @id_ncc INT;
+
+	-- Kiểm tra xem sản phẩm có tồn tại hay không
+	IF NOT EXISTS (SELECT 1 FROM dbo.SanPham WHERE ID_SP = @idSP)
+	BEGIN
+		RAISERROR (N'Sản phẩm không tồn tại.', 16, 1);
+		RETURN;
+	END
+
+	-- Kiểm tra xem nhà cung cấp có tồn tại hay không, nếu không thì thêm mới
+	IF NOT EXISTS (SELECT 1 FROM dbo.NhaCungCap WHERE TenCT = @nhaCungCap)
+	BEGIN
+		INSERT INTO dbo.NhaCungCap(TenCT) VALUES (@nhaCungCap);
+		SET @id_ncc = SCOPE_IDENTITY();
+	END
+	ELSE
+	BEGIN
+		SELECT @id_ncc = ID_NCC FROM dbo.NhaCungCap WHERE TenCT = @nhaCungCap;
+	END
+
+	-- Cập nhật thông tin sản phẩm
+	UPDATE dbo.SanPham
+	SET 
+		TenSP = @TenSP,
+		ID_NCC = @id_ncc,
+		NgaySanXuat = @ngaySX,
+		DonGia = @DonGia,
+		Hinh = @Hinh
+	WHERE ID_SP = @idSP;
+END;
+GO
+
+
 --Xóa
 IF OBJECT_ID('delete_SanPham') IS NOT NULL
 DROP PROCEDURE delete_SanPham
@@ -125,6 +191,30 @@ BEGIN
 END;
 
 SELECT *FROM SanPham
+
+--Chi tiết sản phẩm
+IF OBJECT_ID('delete_SanPhamCT') IS NOT NULL
+DROP PROCEDURE delete_SanPhamCT
+GO
+
+CREATE PROCEDURE delete_SanPhamCT
+	@idSP INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Kiểm tra xem sản phẩm có tồn tại hay không
+	IF NOT EXISTS (SELECT 1 FROM dbo.SanPham WHERE ID_SP = @idSP)
+	BEGIN
+		RAISERROR ('Sản phẩm không tồn tại.', 16, 1);
+		RETURN;
+	END
+
+	-- Xóa sản phẩm
+	DELETE FROM dbo.SanPham WHERE ID_SP = @idSP;
+END;
+GO
+
 
 -- Thiện
 IF OBJECT_ID('insert_PhieuGiaoHang') IS NOT NULL
@@ -242,6 +332,64 @@ select*from KhachHang
 
 
 --MẠNH
+
+IF OBJECT_ID('ins_PhieuGiamGia1') IS NOT NULL
+DROP PROCEDURE ins_PhieuGiamGia1
+GO
+
+CREATE PROCEDURE ins_PhieuGiamGia1
+    @tendgg NVARCHAR(50),
+    @masp INT,
+    @hinhthucgg NVARCHAR(50),
+    @ngaybatdau DATE,
+    @ngayhh DATE,
+    @gaitrigg NVARCHAR(50),
+    @trangthai BIT,
+    @dieukien NVARCHAR(50),
+    @mota NVARCHAR(250)
+AS
+BEGIN
+    SET NOCOUNT ON;
+	DECLARE @iddgg INT;
+    INSERT INTO dbo.DotGiamGia (TeNDGG)
+    VALUES (@tendgg);
+    SET @iddgg = SCOPE_IDENTITY();
+
+	DECLARE @iddieukien INT;
+    INSERT INTO GiamGiaTheoKH (Hinhthuc)
+    VALUES ( @dieukien);
+    SET @iddieukien = SCOPE_IDENTITY();
+
+   INSERT INTO dbo.PhieuGiamGia (ID_DGG, ID_SP,ID_TKH, NgayBatDau, NgayHH, GiaTriGG, TrangThai,Hinhthuc, MoTa)
+    VALUES (@iddgg, @masp, @iddieukien, @ngaybatdau, @ngayhh, @gaitrigg, @trangthai,@hinhthucgg, @mota);
+END;
+GO
+
+CREATE PROCEDURE delete_PhieuGiamGia
+    @id_dgg INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @id_tkh INT, @id_dgg_parent INT;
+
+    -- Lấy ID_TKH và ID_DGG từ bảng PhieuGiamGia
+    SELECT @id_tkh = ID_TKH, @id_dgg_parent = ID_DGG
+    FROM dbo.PhieuGiamGia
+    WHERE ID_DGG = @id_dgg;
+
+    -- Xóa dữ liệu từ bảng PhieuGiamGia
+    DELETE FROM dbo.PhieuGiamGia WHERE ID_DGG = @id_dgg;
+
+    -- Xóa dữ liệu từ bảng GiamGiaTheoKH nếu có
+    IF @id_tkh IS NOT NULL
+        DELETE FROM dbo.GiamGiaTheoKH WHERE ID_TKH = @id_tkh;
+
+    -- Xóa dữ liệu từ bảng DotGiamGia nếu có
+    IF @id_dgg_parent IS NOT NULL
+        DELETE FROM dbo.DotGiamGia WHERE ID_DGG = @id_dgg_parent;
+END;
+
 --Thêm
 
 CREATE PROCEDURE ins_PhieuGiamGia2
@@ -370,10 +518,10 @@ END;
 
 -- Xóa
 IF OBJECT_ID('delete_DotGiamGia') IS NOT NULL
-DROP PROCEDURE delete_DotGiamGia
+DROP PROC delete_DotGiamGia
 GO
 
-CREATE PROCEDURE delete_DotGiamGia
+CREATE PROC delete_DotGiamGia
     @id_dgg INT
 AS
 BEGIN
@@ -396,7 +544,21 @@ BEGIN
         DELETE FROM dbo.DotGiamGiaTheoKH WHERE ID_TKH = @id_tkh;
 END;
 
+--Quên mật khẩu
+IF OBJECT_ID('pro_QuenMatKhau') IS NOT NULL
+DROP PROCEDURE pro_QuenMatKhau
+GO
 
-select *from PhieuGiamGia LEFT JOIN GiamGiaTheoSP on PhieuGiamGia.ID_SP = GiamGiaTheoSP.ID_SP
-                LEFT JOIN GiamGiaTheoKH on PhieuGiamGia.ID_TKH = GiamGiaTheoKH.ID_TKH
-                LEFT JOIN DotGiamGia on PhieuGiamGia.ID_DGG = DotGiamGia.ID_DGG
+CREATE PROC pro_QuenMatKhau
+	@email NVARCHAR(50),
+	@mk NVARCHAR(50)
+AS
+BEGIN
+	SET NOCOUNT ON 
+	DECLARE @id_Tk INT;
+	SELECT @id_Tk = ID_TK FROM dbo.NhanVien WHERE Email = @email;
+	IF @id_Tk IS NOT NULL 
+		UPDATE dbo.TaiKhoan SET MatKhau = @mk WHERE ID_TK = @id_Tk
+END;
+
+EXEC dbo.pro_QuenMatKhau  @email = ?, @mk = ?

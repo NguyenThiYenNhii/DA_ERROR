@@ -76,6 +76,7 @@ private final PhieuGiamGiaReposity dao = new PhieuGiamGiaReposity();
         btn_xoa = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        txt_stt = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Tạo mã giảm giá");
@@ -205,8 +206,12 @@ private final PhieuGiamGiaReposity dao = new PhieuGiamGiaReposity();
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Ngày bắt đầu");
 
+        ngaybatdau.setDateFormatString("yyyy-MM-dd");
+
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Ngày kết thúc");
+
+        ngayketthuc.setDateFormatString("yyyy-MM-dd");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setText("Trạng Thái");
@@ -266,6 +271,8 @@ private final PhieuGiamGiaReposity dao = new PhieuGiamGiaReposity();
             }
         });
 
+        txt_stt.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -273,9 +280,6 @@ private final PhieuGiamGiaReposity dao = new PhieuGiamGiaReposity();
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -286,8 +290,12 @@ private final PhieuGiamGiaReposity dao = new PhieuGiamGiaReposity();
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txt_stt, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                                 .addComponent(jButton2))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
@@ -332,11 +340,16 @@ private final PhieuGiamGiaReposity dao = new PhieuGiamGiaReposity();
                     .addComponent(jLabel8)
                     .addComponent(rdo_danghoatdon)
                     .addComponent(rdo_ngunghoatdong))
-                .addGap(33, 33, 33)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel9))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_stt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -409,19 +422,21 @@ private final PhieuGiamGiaReposity dao = new PhieuGiamGiaReposity();
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
         try {
-            //Tự check rỗng 
-            PhieuGiamGia lof = getFrom();
-            if (dao.Delete(txt_masanpham.getText()) != null) {
+           //Tự check rỗng 
+           PhieuGiamGia lof = getFrom();
+           int index = tbl_bang.getSelectedRow();
+           int masp = Integer.parseInt(txt_stt.getText());
+            if (dao.Delete(index, masp) != null && index>=0) {
                 JOptionPane.showMessageDialog(this, "Xóa thành công");
                 this.filltable();
             } else {
                 JOptionPane.showMessageDialog(this, "Không xóa được");
             }
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi nút Xóa");
+      } catch (Exception e) {
+           JOptionPane.showMessageDialog(this, "Lỗi nút Xóa");
             e.printStackTrace();
-        }
+       }
     }//GEN-LAST:event_btn_xoaActionPerformed
 
     private void btn_capnhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_capnhatActionPerformed
@@ -445,12 +460,12 @@ private final PhieuGiamGiaReposity dao = new PhieuGiamGiaReposity();
         model = (DefaultTableModel) tbl_bang.getModel();
         model.setRowCount(0);
         String maNh = txt_masanpham.getText();
-        for (PhieuGiamGia p : dao.getMa(maNh)) {
-            model.addRow(new Object[]{p.getMaGG(), p.getTenGG(), p.getMaSP(), p.getDieuKien(),
-                 p.getNgaybatdau(), p.getNgayHH(), p.getGiaTriGG(),
-                 p.isTrangthai() ? "Đang hoạt động" : "Ngừng hoạt động",
-                 p.getHinh(), p.getMota()});
-        }
+//        for (PhieuGiamGia p : dao.getMa(maNh)) {
+//            model.addRow(new Object[]{p.getMaGG(), p.getTenGG(), p.getMaSP(), p.getDieuKien(),
+//                 p.getNgaybatdau(), p.getNgayHH(), p.getGiaTriGG(),
+//                 p.isTrangthai() ? "Đang hoạt động" : "Ngừng hoạt động",
+//                 p.getHinhthuc(), p.getMota()});
+//        }
     }//GEN-LAST:event_btn_timkiemActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -504,22 +519,25 @@ private final PhieuGiamGiaReposity dao = new PhieuGiamGiaReposity();
     private javax.swing.JTextField txt_masanpham;
     private javax.swing.JTextArea txt_mota;
     private javax.swing.JTextField txt_mucgiamgia;
+    private javax.swing.JTextField txt_stt;
     private javax.swing.JTextField txt_timkiem;
     // End of variables declaration//GEN-END:variables
 
     private void filltable() {
-        model = (DefaultTableModel) tbl_bang.getModel();
-        model.setRowCount(0);
+     model = (DefaultTableModel) tbl_bang.getModel();
+        model.setRowCount(0); 
         ArrayList<PhieuGiamGia> gg = dao.getall();
         for (PhieuGiamGia p : gg) {
-            model.addRow(new Object[]{p.getMaGG(), p.getTenGG(), p.getMaSP(), p.getDieuKien(),
+            model.addRow(new Object[]{p.getMaGG(), p.getTenGG(), p.getMaSP(),  p.getHinhthuc(),
                  p.getNgaybatdau(), p.getNgayHH(), p.getGiaTriGG(),
                  p.isTrangthai() ? "Đang hoạt động" : "Ngừng hoạt động",
-                 p.getHinh(), p.getMota()});
+                p.getDieuKien(), p.getMota()});
         }
+
     }
     private void Clicktable() {
         int index = tbl_bang.getSelectedRow();
+        txt_stt.setText(tbl_bang.getValueAt(index, 0).toString());
         txt_magiamgia.setText(tbl_bang.getValueAt(index, 1).toString());
         txt_masanpham.setText(tbl_bang.getValueAt(index, 2).toString());
         txt_Dieukien.setText(tbl_bang.getValueAt(index, 8).toString());
@@ -564,7 +582,7 @@ private final PhieuGiamGiaReposity dao = new PhieuGiamGiaReposity();
         sv.setTenGG(txt_magiamgia.getText());
         sv.setMaSP(Integer.parseInt(txt_masanpham.getText()));
         String selectedHinhThuc = (String) cbo_hinhthucgiamgia.getSelectedItem();
-        sv.setHinh(selectedHinhThuc);
+        sv.setHinhthuc(selectedHinhThuc);
 
         sv.setNgaybatdau(ngaybatdau.getDate());
         sv.setNgayHH(ngayketthuc.getDate());

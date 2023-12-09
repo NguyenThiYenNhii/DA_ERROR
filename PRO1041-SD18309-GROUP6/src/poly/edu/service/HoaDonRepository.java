@@ -59,6 +59,20 @@ public class HoaDonRepository implements HDInter {
         return row;
     }    
     
+    public Integer deleteHD () {
+        Integer row = null;
+        String sql = "DELETE FROM HoaDon";
+        Connection cn = Context.getConnection();
+        try {
+            PreparedStatement pre = cn.prepareStatement(sql);
+//            pre.setInt(1, hd);
+            row = pre.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return row;
+    }    
+    
     public static void loadDatatoGH(JTable tbl, Lavie sp, String slmua){
         DefaultTableModel mol =  (DefaultTableModel) tbl.getModel();
         Object obj[] = new Object[7];

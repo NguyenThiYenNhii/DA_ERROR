@@ -19,6 +19,7 @@ public class ThuocTinhSP extends javax.swing.JFrame {
 
     public ThuocTinhSP() {
         initComponents();
+        this.dispose();
     }
 
     /**
@@ -30,6 +31,7 @@ public class ThuocTinhSP extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel17 = new javax.swing.JPanel();
         btn_update1 = new javax.swing.JButton();
         btn_add1 = new javax.swing.JButton();
@@ -41,10 +43,10 @@ public class ThuocTinhSP extends javax.swing.JFrame {
         jRadioButton4 = new javax.swing.JRadioButton();
         jPanel18 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_tt = new javax.swing.JTable();
         lbl_TenTT = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thuộc tính sản phẩm", javax.swing.border.TitledBorder.LEADING, javax.swing.border.TitledBorder.BELOW_TOP));
 
@@ -66,6 +68,7 @@ public class ThuocTinhSP extends javax.swing.JFrame {
 
         jLabel1.setText("Tên thuộc tính");
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Thể Loại");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,8 +76,11 @@ public class ThuocTinhSP extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setSelected(true);
         jRadioButton2.setText("Màu sắc");
 
+        buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Kích Thước");
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +88,7 @@ public class ThuocTinhSP extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("Chất Liệu");
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
@@ -127,18 +134,24 @@ public class ThuocTinhSP extends javax.swing.JFrame {
 
         jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin thuộc tính", javax.swing.border.TitledBorder.LEADING, javax.swing.border.TitledBorder.BELOW_TOP));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_tt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {"1", "Màu Sắc", "Xanh"},
+                {"2", "Màu Sắc", "Đỏ"},
+                {"3", "Màu Sắc", "Trắng"},
+                {"4", "Màu Sắc", "Đen"},
+                {"5", "Màu Sắc", "Xám"}
             },
             new String [] {
-                "STT", "Tên Thuộc Tính"
+                "STT", "Loại Thuộc Tính", "Tên Thuộc Tính"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        tbl_tt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_ttMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbl_tt);
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -183,11 +196,11 @@ public class ThuocTinhSP extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_update1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btn_update1ActionPerformed
 
     private void btn_add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add1ActionPerformed
-        // TODO add your handling code here:
+        model.addRow(new Object[] {6, "Màu Sắc","Tím"});
     }//GEN-LAST:event_btn_add1ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
@@ -208,6 +221,11 @@ public class ThuocTinhSP extends javax.swing.JFrame {
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void tbl_ttMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_ttMouseClicked
+        int index = tbl_tt.getSelectedRow();
+        txt_thuocTinh.setText(tbl_tt.getValueAt(index, 2).toString());
+    }//GEN-LAST:event_tbl_ttMouseClicked
 
     /**
      * @param args the command line arguments
@@ -247,6 +265,7 @@ public class ThuocTinhSP extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_add1;
     private javax.swing.JButton btn_update1;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
@@ -255,8 +274,8 @@ public class ThuocTinhSP extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_TenTT;
+    private javax.swing.JTable tbl_tt;
     private javax.swing.JTextField txt_thuocTinh;
     // End of variables declaration//GEN-END:variables
 }

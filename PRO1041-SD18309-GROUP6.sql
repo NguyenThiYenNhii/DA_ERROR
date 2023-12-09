@@ -7,9 +7,6 @@ GO
 USE DU_AN_1
 GO
 
-SELECT * FROM KhachHang
-
-
 /*==============================================================*/
 /* 1. Table: Chức Vụ                                            */
 /*==============================================================*/
@@ -157,6 +154,8 @@ DienThoai VARCHAR(10),
 TrangThai NVARCHAR(50)
 )
 GO
+
+SELECT * FROM TaiKhoan
 
 /*==============================================================*/
 /* 9. Table: Hóa Đơn                                            */
@@ -338,6 +337,8 @@ MoTa NVARCHAR(250)
 )
 GO
 
+SELECT * FROM SanPham sp 
+JOIN NhaCungCap ncc ON ncc.ID_NCC = sp.ID_NCC
 -- 
 
 /*==============================================================*/
@@ -400,7 +401,7 @@ DiaChi NVARCHAR(250),
 MoTa NVARCHAR(250) 
 )
 GO
-
+SELECT * FROM NhaCungCap
 /*==============================================================*/
 /* 20. Table: Địa Chỉ                                           */
 /*==============================================================*/
@@ -457,11 +458,12 @@ GO
 
 CREATE TABLE PhieuGiamGia(
 	ID_GG INT IDENTITY(1,1) PRIMARY KEY,
+	ID_DGG INT,
     ID_KH INT,
     ID_SP INT,
-	ID_DGG INT,
 	ID_TSP INT,
 	ID_TKH INT,
+	Hinhthuc NVARCHAR(50),
     NgayBatDau DATE,
     NgayHH DATE,
     GiaTriGG NVARCHAR(50),
@@ -625,10 +627,6 @@ CREATE TABLE DotGiamGiaTheoKH(
 )
 GO
 
-SELECT * FROM SanPham sp 
-JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
-WHERE T
-
 --THÊM DỮ LIỆU
 
 -- Chức Vụ
@@ -693,17 +691,15 @@ VALUES
 (2, 5, N'Hoàng Văn E', 'e@example.com', '243567788', 1, '1993-12-12', N'789 Đường UVW');
 
 SELECT * FROM NhanVien 
-	join TaiKhoan on TaiKhoan.ID_TK = NhanVien.ID_TK
-	join ChucVu on ChucVu.ID_CV = NhanVien.ID_CV
 
 -- Tài Khoản
 INSERT INTO TaiKhoan (TenTK, MatKhau)
 VALUES
 ('admin', '123'),
-('b_account', 'b_securepass'),
-('c_account', 'c_pass123'),
-('d_account', 'd_securepass'),
-('e_account', 'e_pass456');
+('nhinty', '2222'),
+('phonglt', '3333'),
+('thienpq', '5555'),
+('manhnd', '121212');
 
 SELECT * FROM TaiKhoan
 
@@ -871,22 +867,23 @@ SELECT * FROM DiaChi
 -- Phiếu Giao Hàng
 INSERT INTO PhieuGiaoHang (ID_SP, ID_KH, ID_NV, ID_HD, NgayGiao, ID_DC, TrangThaiGH, TrangThaiTT, GhiChu)
 VALUES
-(1, 1, 1, 1, '2023-11-20', 1, 0, 0, N'Giao hàng cho đơn hàng #1'),
-(2, 2, 2, 2, '2023-11-21', 2, 0, 0, N'Giao hàng cho đơn hàng #2'),
-(3, 3, 3, 3, '2023-11-22', 3, 0, 0, N'Giao hàng cho đơn hàng #3'),
-(4, 4, 4, 4, '2023-11-23', 4, 0, 0, N'Giao hàng cho đơn hàng #4'),
-(5, 5, 5, 5, '2023-11-24', 5, 0, 0, N'Giao hàng cho đơn hàng #5');
+(1, 1, 1, 1, '2023-12-08', 1, 1, 0, N'Giao hàng cho đơn hàng #1'),
+(2, 2, 2, 2, '2023-12-21', 2, 0, 1, N'Giao hàng cho đơn hàng #2'),
+(3, 3, 3, 3, '2023-12-22', 3, 1, 0, N'Giao hàng cho đơn hàng #3'),
+(4, 4, 4, 4, '2023-12-23', 4, 0, 1, N'Giao hàng cho đơn hàng #4'),
+(5, 5, 5, 5, '2023-12-24', 5, 1, 0, N'Giao hàng cho đơn hàng #5');
 
 SELECT * FROM PhieuGiaoHang
 
-INSERT INTO PhieuGiamGia (ID_DGG,ID_KH, ID_SP, ID_TSP, ID_TKH, NgayBatDau, NgayHH, GiaTriGG, TrangThai, NgayTao, NgaySuDung, MoTa)
-VALUES
-(1,1, 20011, 1, 1, '2023-11-20', '2023-12-31', '10%', 1, '2023-11-15', NULL, N'Phiếu giảm giá cho khách hàng Nam'),
-(2,2, 20015, 2, 2, '2023-11-21', '2023-01-12', '15%', 0, '2023-01-18', NULL, N'Phiếu giảm giá cho khách hàng Bình'),
-(3,3, 20013, 3, 3, '2023-11-22', '2023-02-05', '20%', 0, '2023-11-17', NULL, N'Phiếu giảm giá cho khách hàng Cường'),
-(4,4, 20019, 4, 4, '2023-11-23', '2023-07-25', '25%', 1, '2023-07-28', NULL, N'Phiếu giảm giá cho khách hàng Duyên'),
-(5,5, 20017, 5, 5, '2023-11-24', '2023-08-22', '30%', 1, '2023-08-26', NULL, N'Phiếu giảm giá cho khách hàng Eros');
+UPDATE KhachHang SET DienThoai = 0966234535 WHERE ID_KH = 4
 
+INSERT INTO PhieuGiamGia (ID_DGG,ID_KH, ID_SP, ID_TSP, ID_TKH,Hinhthuc, NgayBatDau, NgayHH, GiaTriGG, TrangThai, NgayTao, NgaySuDung, MoTa)
+VALUES
+(1,0987654321, 20011, 1, 1,N'Giảm theo(%)', '2023-11-20', '2023-12-31', '10%', 1, '2023-11-15', NULL, N'Phiếu giảm giá cho khách hàng Nam'),
+(2,0901234567, 20015, 2, 2,N'Giảm theo(%)', '2023-11-21', '2023-01-12', '15%', 0, '2023-01-18', NULL, N'Phiếu giảm giá cho khách hàng Bình'),
+(3,0976543210, 20013, 3, 3,N'Giảm theo số tiền', '2023-11-22', '2023-02-05', '20%', 0, '2023-11-17', NULL, N'Phiếu giảm giá cho khách hàng Cường'),
+(4,0912345678, 20019, 4, 4,N'Giảm theo số tiền', '2023-11-23', '2023-07-25', '25%', 1, '2023-07-28', NULL, N'Phiếu giảm giá cho khách hàng Duyên'),
+(5,0965432109, 20017, 5, 5,N'Giảm theo(%)', '2023-11-24', '2023-08-22', '30%', 1, '2023-08-26', NULL, N'Phiếu giảm giá cho khách hàng Eros');
 
 SELECT * FROM PhieuGiamGia
 
@@ -902,13 +899,13 @@ VALUES
 SELECT * FROM GiamGiaTheoSP
 
 -- Phiếu Giảm Giá Theo Khách Hàng
-INSERT INTO GiamGiaTheoKH (ID_KH, VaiTro, GiaTriGG, Hinhthuc,DieuKienGG, MoTa)
+INSERT INTO GiamGiaTheoKH (ID_KH, VaiTro, GiaTriGG, Hinhthuckh,DieuKienGG, MoTa)
 VALUES
-(1, 1, '5%', N'Áp dụng cho khách hàng thân thiết',N'Giảm theo(%)', N'Giảm giá 5% cho khách hàng thân thiết'),
-(2, 0, '7%', N'Áp dụng cho tất cả khách hàng',N'Giảm theo số tiền' , N'Giảm giá 7% cho tất cả khách hàng'),
-(3, 1, '10%', N'Áp dụng cho khách hàng đặc biệt', N'Giảm theo(%)', N'Giảm giá 10% cho khách hàng đặc biệt'),
-(4, 0, '8%', N'Áp dụng cho tất cả khách hàng',N'Giảm theo số tiền' ,N'Giảm giá 8% cho tất cả khách hàng'),
-(5, 1, '12%', N'Áp dụng cho khách hàng VIP', N'Giảm theo(%)', N'Giảm giá 12% cho khách hàng VIP');
+(0987654321, 1, '5%', N'Áp dụng cho khách hàng thân thiết',N'Giảm theo(%)', N'Giảm giá 5% cho khách hàng thân thiết'),
+(0901234567, 0, '7%', N'Áp dụng cho tất cả khách hàng',N'Giảm theo số tiền' , N'Giảm giá 7% cho tất cả khách hàng'),
+(0976543210, 1, '10%', N'Áp dụng cho khách hàng đặc biệt', N'Giảm theo(%)', N'Giảm giá 10% cho khách hàng đặc biệt'),
+(0912345678, 0, '8%', N'Áp dụng cho tất cả khách hàng',N'Giảm theo số tiền' ,N'Giảm giá 8% cho tất cả khách hàng'),
+(0965432109, 1, '12%', N'Áp dụng cho khách hàng VIP', N'Giảm theo(%)', N'Giảm giá 12% cho khách hàng VIP');
 -- Phương Thức Vận Chuyển
 INSERT INTO PhuongThucVanChuyen (HinhThucVC, MoTa)
 VALUES
@@ -1066,13 +1063,9 @@ ALTER TABLE dbo.HoaDon
 ALTER TABLE dbo.ChatLieu
     ADD FOREIGN KEY (ID_SP) REFERENCES dbo.SanPham(ID_SP);
 
-ALTER TABLE DotGiamGiaTheoKH
-DROP CONSTRAINT FK_DotGiamGia_DotGiamGiaTheoKH; --
-
-
 ALTER TABLE dbo.DotGiamGia
         ADD FOREIGN KEY (ID_TSP) REFERENCES DotGiamGiaTheoSP(ID_TSP), --
-		FOREIGN KEY (ID_TKH) REFERENCES DotGiamGiaTheoKH(ID_TKH);
+		FOREIGN KEY (ID_TKH) REFERENCES DotGiamGiaTheoKH(ID_TKH);--
 
 ALTER TABLE dbo.DotGiamGiaTheoSP
     ADD CONSTRAINT FK_DotGiamGia_DotGiamGiaTheoSP
@@ -1089,3 +1082,4 @@ JOIN TheLoai tl ON tl.ID_TL = sp.ID_TL
 JOIN ChatLieu cl ON cl.ID_CL = sp.ID_CL
 JOIN KichThuoc kt ON kt.ID_KT = sp.ID_KT
 WHERE TenSP LIKE N'% nữ %'
+

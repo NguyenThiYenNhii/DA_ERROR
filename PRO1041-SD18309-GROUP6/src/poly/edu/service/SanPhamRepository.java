@@ -118,6 +118,50 @@ public class SanPhamRepository implements XObject {
         return lst;
     }
     
+    
+    public ArrayList<Lavie> selectbyKT(String kt) {
+        ArrayList<Lavie> lst = new ArrayList<>();
+        String sql = "select MaSP, TenSP, TenTL, ChatLieu, KichThuoc, TenMS, SoLuong, DonGia from SanPham\n"
+                + "join TheLoai on SanPham.MaTL = TheLoai.MaTL\n"
+                + "join ChatLieu on SanPham.MaCL = ChatLieu.MaCL\n"
+                + "join KichThuoc on SanPham.MaKT = KichThuoc.MaKT\n"
+                + "join MauSac on SanPham.MaMS = MauSac.MaMS where KichThuoc.KichThuoc like '" + kt + "'";
+        try {
+            PreparedStatement pre = cn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                Lavie sp = new Lavie();
+                sp.setMaSP(rs.getInt("MaSP"));
+                sp.setTenSP(rs.getString("TenSP"));
+                sp.setTheLoai(rs.getString("TenTL"));
+                sp.setChatLieu(rs.getString("ChatLieu"));
+                sp.setKichThuoc(rs.getString("KichThuoc"));
+                sp.setMauSac(rs.getString("TenMS"));
+                sp.setSoLuong(rs.getInt("SoLuong"));
+                sp.setDonGia(rs.getDouble("DonGia"));
+                lst.add(sp);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return lst;
+    }
+    
+    public Integer update(Lavie sp, int soLuong, int ma) {
+        Integer row = null;
+        Connection con = Context.getConnection();
+
+        try {
+            String string = "UPDATE SanPham SET SoLuong = "+ soLuong +" WHERE MaSP =" +ma;
+            PreparedStatement cs = con.prepareStatement(string);
+//            cs.setObject(1, sp.getMaSP());
+            row = cs.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return row;
+    }
 //    @Override
 //    public ArrayList<SanPham> selectBySQL(String sql, Object... args) {
 ////         ArrayList<SanPham> lst = new ArrayList<>();

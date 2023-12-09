@@ -1,9 +1,7 @@
 package poly.edu.service;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import poly.edu.model.ChatLieu;
 import poly.edu.model.KichThuoc;
 import poly.edu.model.MauSac;
@@ -285,5 +283,6 @@ public class Service_SanPham implements Interface_sanPham {
         }
         return list;
     }
+    
     
 }

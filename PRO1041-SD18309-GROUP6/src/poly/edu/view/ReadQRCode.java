@@ -56,7 +56,7 @@ public class ReadQRCode extends javax.swing.JFrame implements Runnable, ThreadFa
         txt_kq = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(11, 185, 214));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -92,6 +92,7 @@ public class ReadQRCode extends javax.swing.JFrame implements Runnable, ThreadFa
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        panel.setFPSDisplayed(true);
         webcam.close();
     }//GEN-LAST:event_jButton1ActionPerformed
 

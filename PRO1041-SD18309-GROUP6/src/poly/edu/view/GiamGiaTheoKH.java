@@ -250,6 +250,7 @@ public class GiamGiaTheoKH extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbl_bangKHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_bangKHMouseClicked

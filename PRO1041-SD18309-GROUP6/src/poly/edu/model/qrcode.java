@@ -17,7 +17,6 @@ import java.util.logging.Logger;
  * @author Yen Nhi
  */
 public class qrcode {
-    
     private static final String outputQR = "D:\\DUAN_1\\QR\\SP1.png";
     
     private static void  generateQRcode(String text, int width, int height, String filePath) throws WriterException {

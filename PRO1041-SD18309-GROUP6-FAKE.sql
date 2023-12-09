@@ -188,4 +188,6 @@ join MauSac on SanPham.MaMS= MauSac.MaMS
 
 
 Select * from HoaDon
-DELETE FROM HoaDon WHERE MaHD = 
+DELETE FROM HoaDon WHERE MaHD = 8
+
+UPDATE SanPham SET SoLuong = ? WHERE MaSP =?
